@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import MapComponent from '../screens/MapComponent';
-import PointDetail from '../screens/PointDetail';
-import ConfirmDateTimeScreen from '../screens/calendar/ConfirmDateTimeScreen';
-import SuccessScreen from '../screens/calendar/SuccessScreen';
+import MapComponent from '../../../MapComponent';
+import PointDetail from '../../../PointDetail';
+import ConfirmDateTimeScreen from '../../../components/calendar/ConfirmDateTimeScreen';
+import SuccessScreen from '../../../components/calendar/SuccessScreen';
 
 const Stack = createStackNavigator();
 

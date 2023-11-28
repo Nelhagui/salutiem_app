@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Appointments from '../screens/appointments/user/Appointments';
-import AppointmentDetails from '../screens/appointments/user/AppointmentDetails';
-import CancellationResult from '../screens/appointments/user/CancellationResult';
+import Appointments from '../../../components/appointments/user/Appointments';
+import AppointmentDetails from '../../../components/appointments/user/AppointmentDetails';
+import CancellationResult from '../../../components/appointments/user/CancellationResult';
 
 const Stack = createStackNavigator();
 
@@ -24,9 +24,9 @@ const AppointmentsStackNavigator = () => {
                 component={CancellationResult}
                 options={() => ({
                     header: () => null,
-                    headerTitle: '', 
+                    headerTitle: '',
                     headerBackTitle: ''
-                  })}
+                })}
             />
         </Stack.Navigator>
     );

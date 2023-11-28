@@ -3,6 +3,10 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { navigate } from '../../components/utilities/NavigationService.js';
 
 const HomeScreen = ({ navigation }) => {
+    const handleGoToProfile = () => {
+        navigate('Turnos'); 
+    };
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bienvenido a la Aplicación</Text>
@@ -11,11 +15,15 @@ const HomeScreen = ({ navigation }) => {
                 title="Ver Lista de Turnos"
                 onPress={() => navigate('Turnos')}
             />
-
             <Button
                 title="Ver Mapa"
-                onPress={() => navigation.navigate('Map')} // Asegúrate de que 'Mapa' sea el nombre correcto de la pantalla
+                onPress={() => navigation.navigate('MainStackNavigator', { screen: 'Map' })}
             />
+            <Button
+                title="Ver Perfil"
+                onPress={handleGoToProfile}
+            />
+            
         </View>
     );
 };

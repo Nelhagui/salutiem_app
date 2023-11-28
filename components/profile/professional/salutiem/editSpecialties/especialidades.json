@@ -1,0 +1,2082 @@
+[
+    {
+        "id": 1,
+        "nombre": "Alergia e inmunología clínica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 2,
+        "nombre": "Anestesia, analgesia y reanimación",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 1,
+                "especialidad_id": 2,
+                "nombre": "Terapia intensiva",
+                "habilitado": 1
+            },
+            {
+                "id": 2,
+                "especialidad_id": 2,
+                "nombre": "Cuidados paliativos",
+                "habilitado": 1
+            },
+            {
+                "id": 3,
+                "especialidad_id": 2,
+                "nombre": "Medicina del dolor",
+                "habilitado": 1
+            },
+            {
+                "id": 4,
+                "especialidad_id": 2,
+                "nombre": "Anestesiología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 5,
+                "especialidad_id": 2,
+                "nombre": "Medicina del sueño",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "nombre": "Arritmias y electrofisiología clínica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 4,
+        "nombre": "Auditoría médica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 5,
+        "nombre": "Cardiología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 6,
+                "especialidad_id": 5,
+                "nombre": "Cardiología clínica de adultos",
+                "habilitado": 1
+            },
+            {
+                "id": 7,
+                "especialidad_id": 5,
+                "nombre": "Cardiología clínica pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 8,
+                "especialidad_id": 5,
+                "nombre": "Unidad coronaria",
+                "habilitado": 1
+            },
+            {
+                "id": 9,
+                "especialidad_id": 5,
+                "nombre": "Arritmias, electrofisiología y prótesis eléctricas cardíacas",
+                "habilitado": 1
+            },
+            {
+                "id": 10,
+                "especialidad_id": 5,
+                "nombre": "Angiología",
+                "habilitado": 1
+            },
+            {
+                "id": 11,
+                "especialidad_id": 5,
+                "nombre": "Insuficiencia cardíaca",
+                "habilitado": 1
+            },
+            {
+                "id": 12,
+                "especialidad_id": 5,
+                "nombre": "Hipertensión arterial y prevención cardiovascular",
+                "habilitado": 1
+            },
+            {
+                "id": 13,
+                "especialidad_id": 5,
+                "nombre": "Anticoagulación",
+                "habilitado": 1
+            },
+            {
+                "id": 14,
+                "especialidad_id": 5,
+                "nombre": "Rehabilitación",
+                "habilitado": 1
+            },
+            {
+                "id": 15,
+                "especialidad_id": 5,
+                "nombre": "Procedimientos cardiológicos no invasivos",
+                "habilitado": 1
+            },
+            {
+                "id": 16,
+                "especialidad_id": 5,
+                "nombre": "Ecocardiografía de adultos",
+                "habilitado": 1
+            },
+            {
+                "id": 17,
+                "especialidad_id": 5,
+                "nombre": "Ecocardiografía pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 18,
+                "especialidad_id": 5,
+                "nombre": "Ecografía vascular periférica",
+                "habilitado": 1
+            },
+            {
+                "id": 19,
+                "especialidad_id": 5,
+                "nombre": "Cardiología Infantil",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "nombre": "Cirugía",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 20,
+                "especialidad_id": 6,
+                "nombre": "Cirugía general",
+                "habilitado": 1
+            },
+            {
+                "id": 21,
+                "especialidad_id": 6,
+                "nombre": "Cirugía bariátrica y metabólica",
+                "habilitado": 1
+            },
+            {
+                "id": 22,
+                "especialidad_id": 6,
+                "nombre": "Cirugía cardiovascular",
+                "habilitado": 1
+            },
+            {
+                "id": 23,
+                "especialidad_id": 6,
+                "nombre": "Cirugía de cabeza y cuello",
+                "habilitado": 1
+            },
+            {
+                "id": 24,
+                "especialidad_id": 6,
+                "nombre": "Cirugía digestiva",
+                "habilitado": 1
+            },
+            {
+                "id": 25,
+                "especialidad_id": 6,
+                "nombre": "Cirugía de colon y rectal",
+                "habilitado": 1
+            },
+            {
+                "id": 26,
+                "especialidad_id": 6,
+                "nombre": "Cirugía de cuidados intensivos",
+                "habilitado": 1
+            },
+            {
+                "id": 27,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ginecológica oncológica",
+                "habilitado": 1
+            },
+            {
+                "id": 28,
+                "especialidad_id": 6,
+                "nombre": "Cirugía craneofacial",
+                "habilitado": 1
+            },
+            {
+                "id": 29,
+                "especialidad_id": 6,
+                "nombre": "Cirugía de mano",
+                "habilitado": 1
+            },
+            {
+                "id": 30,
+                "especialidad_id": 6,
+                "nombre": "Cirugía neurológica",
+                "habilitado": 1
+            },
+            {
+                "id": 31,
+                "especialidad_id": 6,
+                "nombre": "Cirugía endovascular neuroradiológica",
+                "habilitado": 1
+            },
+            {
+                "id": 32,
+                "especialidad_id": 6,
+                "nombre": "Cirugía oftalmológica",
+                "habilitado": 1
+            },
+            {
+                "id": 33,
+                "especialidad_id": 6,
+                "nombre": "Cirugía oral y maxillofacial",
+                "habilitado": 1
+            },
+            {
+                "id": 34,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ortopédica",
+                "habilitado": 1
+            },
+            {
+                "id": 35,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ortopédica reconstructiva",
+                "habilitado": 1
+            },
+            {
+                "id": 36,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ortopédica de pie y tobillo",
+                "habilitado": 1
+            },
+            {
+                "id": 37,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ortopédica deportiva",
+                "habilitado": 1
+            },
+            {
+                "id": 38,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ortopédica espinal",
+                "habilitado": 1
+            },
+            {
+                "id": 39,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ortopédica de trauma",
+                "habilitado": 1
+            },
+            {
+                "id": 40,
+                "especialidad_id": 6,
+                "nombre": "Cirugía ortopédica pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 41,
+                "especialidad_id": 6,
+                "nombre": "Cirugía oncológica musculoesquelética",
+                "habilitado": 1
+            },
+            {
+                "id": 42,
+                "especialidad_id": 6,
+                "nombre": "Cirugía otorrinolaringológica",
+                "habilitado": 1
+            },
+            {
+                "id": 43,
+                "especialidad_id": 6,
+                "nombre": "Cirugía pediátrica otorrinolaringológica",
+                "habilitado": 1
+            },
+            {
+                "id": 44,
+                "especialidad_id": 6,
+                "nombre": "Cirugía neurológica otológica",
+                "habilitado": 1
+            },
+            {
+                "id": 45,
+                "especialidad_id": 6,
+                "nombre": "Cirugía pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 46,
+                "especialidad_id": 6,
+                "nombre": "Cirugía neonatal",
+                "habilitado": 1
+            },
+            {
+                "id": 47,
+                "especialidad_id": 6,
+                "nombre": "Cirugía prenatal",
+                "habilitado": 1
+            },
+            {
+                "id": 48,
+                "especialidad_id": 6,
+                "nombre": "Cirugía pediátrica oncológica",
+                "habilitado": 1
+            },
+            {
+                "id": 49,
+                "especialidad_id": 6,
+                "nombre": "Cirugía torácica",
+                "habilitado": 1
+            },
+            {
+                "id": 50,
+                "especialidad_id": 6,
+                "nombre": "Cirugía cardíaca congénita",
+                "habilitado": 1
+            },
+            {
+                "id": 51,
+                "especialidad_id": 6,
+                "nombre": "Cirugía vascular",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "nombre": "Cirugía plástica y reparadora",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 52,
+                "especialidad_id": 7,
+                "nombre": "Cirugía craneomaxilofacial",
+                "habilitado": 1
+            },
+            {
+                "id": 53,
+                "especialidad_id": 7,
+                "nombre": "Cirugía microvascular",
+                "habilitado": 1
+            },
+            {
+                "id": 54,
+                "especialidad_id": 7,
+                "nombre": "Cirugía de mano",
+                "habilitado": 1
+            },
+            {
+                "id": 55,
+                "especialidad_id": 7,
+                "nombre": "Cirugía  de reconstrucción de mamas",
+                "habilitado": 1
+            },
+            {
+                "id": 56,
+                "especialidad_id": 7,
+                "nombre": "Cirugía reparadora de quemaduras",
+                "habilitado": 1
+            },
+            {
+                "id": 57,
+                "especialidad_id": 7,
+                "nombre": "Cirugía de paladar y labio leporino",
+                "habilitado": 1
+            },
+            {
+                "id": 58,
+                "especialidad_id": 7,
+                "nombre": "Cirugía reparadora de extremidades",
+                "habilitado": 1
+            },
+            {
+                "id": 59,
+                "especialidad_id": 7,
+                "nombre": "Cirugía reconstructiva de extremidad inferior",
+                "habilitado": 1
+            },
+            {
+                "id": 60,
+                "especialidad_id": 7,
+                "nombre": "Cirugía reparadora de cicatrices",
+                "habilitado": 1
+            },
+            {
+                "id": 61,
+                "especialidad_id": 7,
+                "nombre": "Cirugía cosmética de mamas",
+                "habilitado": 1
+            },
+            {
+                "id": 62,
+                "especialidad_id": 7,
+                "nombre": "Cirugía cosmética facial",
+                "habilitado": 1
+            },
+            {
+                "id": 63,
+                "especialidad_id": 7,
+                "nombre": "Cirugía cosmética cuerpo",
+                "habilitado": 1
+            },
+            {
+                "id": 64,
+                "especialidad_id": 7,
+                "nombre": "Cirugía cosmética  de rejuvenecimiento",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "nombre": "Coloproctología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 65,
+                "especialidad_id": 8,
+                "nombre": "Laparoscópica de colon y recto",
+                "habilitado": 1
+            },
+            {
+                "id": 66,
+                "especialidad_id": 8,
+                "nombre": "Videocolonoscopía",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "nombre": "Dermatología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 67,
+                "especialidad_id": 9,
+                "nombre": "Dermatología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 68,
+                "especialidad_id": 9,
+                "nombre": "Dermatología quirúrgica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "nombre": "Desarrollo infantil",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 11,
+        "nombre": "Diagnóstico por imágenes",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 69,
+                "especialidad_id": 11,
+                "nombre": "Radiología abdominal",
+                "habilitado": 1
+            },
+            {
+                "id": 70,
+                "especialidad_id": 11,
+                "nombre": "Imagen mamaria",
+                "habilitado": 1
+            },
+            {
+                "id": 71,
+                "especialidad_id": 11,
+                "nombre": "radiología cardiotorácica",
+                "habilitado": 1
+            },
+            {
+                "id": 72,
+                "especialidad_id": 11,
+                "nombre": "radiología cardiovascular",
+                "habilitado": 1
+            },
+            {
+                "id": 73,
+                "especialidad_id": 11,
+                "nombre": "radiología torácica",
+                "habilitado": 1
+            },
+            {
+                "id": 74,
+                "especialidad_id": 11,
+                "nombre": "radiología de emergencia",
+                "habilitado": 1
+            },
+            {
+                "id": 75,
+                "especialidad_id": 11,
+                "nombre": "Neuroradiología quirúrgica endovascular",
+                "habilitado": 1
+            },
+            {
+                "id": 76,
+                "especialidad_id": 11,
+                "nombre": "Radiología gastrointestinal",
+                "habilitado": 1
+            },
+            {
+                "id": 77,
+                "especialidad_id": 11,
+                "nombre": "Radiología genitourinaria",
+                "habilitado": 1
+            },
+            {
+                "id": 78,
+                "especialidad_id": 11,
+                "nombre": "Radiología de cabeza y cuello",
+                "habilitado": 1
+            },
+            {
+                "id": 79,
+                "especialidad_id": 11,
+                "nombre": "Radiología intervencional",
+                "habilitado": 1
+            },
+            {
+                "id": 80,
+                "especialidad_id": 11,
+                "nombre": "Radiología musculoesquelética",
+                "habilitado": 1
+            },
+            {
+                "id": 81,
+                "especialidad_id": 11,
+                "nombre": "Neuroradiología",
+                "habilitado": 1
+            },
+            {
+                "id": 82,
+                "especialidad_id": 11,
+                "nombre": "Radiología nuclear",
+                "habilitado": 1
+            },
+            {
+                "id": 83,
+                "especialidad_id": 11,
+                "nombre": "Radiología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 84,
+                "especialidad_id": 11,
+                "nombre": "Oncología de radiación",
+                "habilitado": 1
+            },
+            {
+                "id": 85,
+                "especialidad_id": 11,
+                "nombre": "Radiología vascular e intervencionista",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "nombre": "Emergentología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 86,
+                "especialidad_id": 12,
+                "nombre": "Anestesiología para cuidados intensivos",
+                "habilitado": 1
+            },
+            {
+                "id": 87,
+                "especialidad_id": 12,
+                "nombre": "Servicios médicos de emergencia",
+                "habilitado": 1
+            },
+            {
+                "id": 88,
+                "especialidad_id": 12,
+                "nombre": "Hospicio y medicina paliativa",
+                "habilitado": 1
+            },
+            {
+                "id": 89,
+                "especialidad_id": 12,
+                "nombre": "Medicina interna",
+                "habilitado": 1
+            },
+            {
+                "id": 90,
+                "especialidad_id": 12,
+                "nombre": "Cuidados críticos",
+                "habilitado": 1
+            },
+            {
+                "id": 91,
+                "especialidad_id": 12,
+                "nombre": "Toxicología médica",
+                "habilitado": 1
+            },
+            {
+                "id": 92,
+                "especialidad_id": 12,
+                "nombre": "Medicina para el dolor",
+                "habilitado": 1
+            },
+            {
+                "id": 93,
+                "especialidad_id": 12,
+                "nombre": "Medicina deportiva",
+                "habilitado": 1
+            },
+            {
+                "id": 94,
+                "especialidad_id": 12,
+                "nombre": "Medicina submarina e hiperbárica",
+                "habilitado": 1
+            },
+            {
+                "id": 95,
+                "especialidad_id": 12,
+                "nombre": "Emergentología pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "nombre": "Endocrinología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 96,
+                "especialidad_id": 13,
+                "nombre": "Patología tiroidea",
+                "habilitado": 1
+            },
+            {
+                "id": 97,
+                "especialidad_id": 13,
+                "nombre": "Metabolismo fosfocálcico",
+                "habilitado": 1
+            },
+            {
+                "id": 98,
+                "especialidad_id": 13,
+                "nombre": "Neuroendocrinología",
+                "habilitado": 1
+            },
+            {
+                "id": 99,
+                "especialidad_id": 13,
+                "nombre": "Patología suprarrenal",
+                "habilitado": 1
+            },
+            {
+                "id": 100,
+                "especialidad_id": 13,
+                "nombre": "Nutrición",
+                "habilitado": 1
+            },
+            {
+                "id": 101,
+                "especialidad_id": 13,
+                "nombre": "Cirugía bariátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 102,
+                "especialidad_id": 13,
+                "nombre": "Diabetes",
+                "habilitado": 1
+            },
+            {
+                "id": 103,
+                "especialidad_id": 13,
+                "nombre": "Patología gonadal femenina y masculina",
+                "habilitado": 1
+            },
+            {
+                "id": 104,
+                "especialidad_id": 13,
+                "nombre": "Endocrinología pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "nombre": "Endoscopía digestiva, diagnóstica y terapéutica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 15,
+        "nombre": "Evaluación de tecnologías sanitarias",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 16,
+        "nombre": "Farmacología clínica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 17,
+        "nombre": "Flebología y linfología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 18,
+        "nombre": "Gastroenterología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 105,
+                "especialidad_id": 18,
+                "nombre": "Hepatología",
+                "habilitado": 1
+            },
+            {
+                "id": 106,
+                "especialidad_id": 18,
+                "nombre": "Trasplante",
+                "habilitado": 1
+            },
+            {
+                "id": 107,
+                "especialidad_id": 18,
+                "nombre": "Gastroenterología pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "nombre": "Genética Médica",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 108,
+                "especialidad_id": 19,
+                "nombre": "Bioquímica genética",
+                "habilitado": 1
+            },
+            {
+                "id": 109,
+                "especialidad_id": 19,
+                "nombre": "Citogenética clínica",
+                "habilitado": 1
+            },
+            {
+                "id": 110,
+                "especialidad_id": 19,
+                "nombre": "Genética clínica",
+                "habilitado": 1
+            },
+            {
+                "id": 111,
+                "especialidad_id": 19,
+                "nombre": "Patología genética molecular",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "nombre": "Geriatría",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 21,
+        "nombre": "Ginecología y obstetricia",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 112,
+                "especialidad_id": 21,
+                "nombre": "Ginecología oncológica",
+                "habilitado": 1
+            },
+            {
+                "id": 113,
+                "especialidad_id": 21,
+                "nombre": "Fetal-maternal",
+                "habilitado": 1
+            },
+            {
+                "id": 114,
+                "especialidad_id": 21,
+                "nombre": "Reproductiva y fertilidad",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "nombre": "Hematología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 115,
+                "especialidad_id": 22,
+                "nombre": "Hemato-Oncología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 116,
+                "especialidad_id": 22,
+                "nombre": "Hemodinamia, angiografía y cardioangiología intervencionista",
+                "habilitado": 1
+            },
+            {
+                "id": 117,
+                "especialidad_id": 22,
+                "nombre": "Hemoterapia e inmunohematología ",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 23,
+        "nombre": "Hepatología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 118,
+                "especialidad_id": 23,
+                "nombre": "Hepatología pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 24,
+        "nombre": "Infectología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 119,
+                "especialidad_id": 24,
+                "nombre": "Infectología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 120,
+                "especialidad_id": 24,
+                "nombre": "Medicina del viajero",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 25,
+        "nombre": "Mastología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 26,
+        "nombre": "Medicina aeronáutica y espacial",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 27,
+        "nombre": "Medicina de la industria farmacéutica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 28,
+        "nombre": "Medicina del deporte",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 29,
+        "nombre": "Medicina del trabajo",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 30,
+        "nombre": "Medicina familiar",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 121,
+                "especialidad_id": 30,
+                "nombre": "Medicina de adolescentes",
+                "habilitado": 1
+            },
+            {
+                "id": 122,
+                "especialidad_id": 30,
+                "nombre": "Geriatría",
+                "habilitado": 1
+            },
+            {
+                "id": 123,
+                "especialidad_id": 30,
+                "nombre": "Cuidados paliativos",
+                "habilitado": 1
+            },
+            {
+                "id": 124,
+                "especialidad_id": 30,
+                "nombre": "Medicina del dolor",
+                "habilitado": 1
+            },
+            {
+                "id": 125,
+                "especialidad_id": 30,
+                "nombre": "Medicina del deporte",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "nombre": "Medicina física y rehabilitación",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 126,
+                "especialidad_id": 31,
+                "nombre": "Medicina para lesiones cerebrales",
+                "habilitado": 1
+            },
+            {
+                "id": 127,
+                "especialidad_id": 31,
+                "nombre": "Medicina neuromuscular",
+                "habilitado": 1
+            },
+            {
+                "id": 128,
+                "especialidad_id": 31,
+                "nombre": "Medicina para el dolor",
+                "habilitado": 1
+            },
+            {
+                "id": 129,
+                "especialidad_id": 31,
+                "nombre": "Medicina de rehabilitación pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 130,
+                "especialidad_id": 31,
+                "nombre": "Medicina para la médula espinal",
+                "habilitado": 1
+            },
+            {
+                "id": 131,
+                "especialidad_id": 31,
+                "nombre": "Medicina deportiva",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 32,
+        "nombre": "Medicina interna o clínica médica",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 132,
+                "especialidad_id": 32,
+                "nombre": "Alergia",
+                "habilitado": 1
+            },
+            {
+                "id": 133,
+                "especialidad_id": 32,
+                "nombre": "Cardiología",
+                "habilitado": 1
+            },
+            {
+                "id": 134,
+                "especialidad_id": 32,
+                "nombre": "Cuidados intensivos",
+                "habilitado": 1
+            },
+            {
+                "id": 135,
+                "especialidad_id": 32,
+                "nombre": "Dermatología",
+                "habilitado": 1
+            },
+            {
+                "id": 136,
+                "especialidad_id": 32,
+                "nombre": "Endocrinología",
+                "habilitado": 1
+            },
+            {
+                "id": 137,
+                "especialidad_id": 32,
+                "nombre": "Infectología",
+                "habilitado": 1
+            },
+            {
+                "id": 138,
+                "especialidad_id": 32,
+                "nombre": "Gastroenterología",
+                "habilitado": 1
+            },
+            {
+                "id": 139,
+                "especialidad_id": 32,
+                "nombre": "Medicina General",
+                "habilitado": 1
+            },
+            {
+                "id": 140,
+                "especialidad_id": 32,
+                "nombre": "Genética",
+                "habilitado": 1
+            },
+            {
+                "id": 141,
+                "especialidad_id": 32,
+                "nombre": "Geriatría",
+                "habilitado": 1
+            },
+            {
+                "id": 142,
+                "especialidad_id": 32,
+                "nombre": "Hematología",
+                "habilitado": 1
+            },
+            {
+                "id": 143,
+                "especialidad_id": 32,
+                "nombre": "Inmunología",
+                "habilitado": 1
+            },
+            {
+                "id": 144,
+                "especialidad_id": 32,
+                "nombre": "Nefrología",
+                "habilitado": 1
+            },
+            {
+                "id": 145,
+                "especialidad_id": 32,
+                "nombre": "Neumología ",
+                "habilitado": 1
+            },
+            {
+                "id": 146,
+                "especialidad_id": 32,
+                "nombre": "Neurología",
+                "habilitado": 1
+            },
+            {
+                "id": 147,
+                "especialidad_id": 32,
+                "nombre": "Oncología",
+                "habilitado": 1
+            },
+            {
+                "id": 148,
+                "especialidad_id": 32,
+                "nombre": "Reumatología",
+                "habilitado": 1
+            },
+            {
+                "id": 149,
+                "especialidad_id": 32,
+                "nombre": "Medicina interna pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "nombre": "Medicina legal",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 34,
+        "nombre": "Medicina nuclear",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 35,
+        "nombre": "Medicina reproductiva",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 36,
+        "nombre": "Medicina sanitaria",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 37,
+        "nombre": "Nefrología y medio interno",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 150,
+                "especialidad_id": 37,
+                "nombre": "Nefrología pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "nombre": "Neonatología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 39,
+        "nombre": "Neumonología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 151,
+                "especialidad_id": 39,
+                "nombre": "Neumonología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 152,
+                "especialidad_id": 39,
+                "nombre": "Medicina de montaña",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 40,
+        "nombre": "Neurocirugía",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 41,
+        "nombre": "Neurología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 153,
+                "especialidad_id": 41,
+                "nombre": "Medicina para lesiones cerebrales",
+                "habilitado": 1
+            },
+            {
+                "id": 154,
+                "especialidad_id": 41,
+                "nombre": "Neurología infantil",
+                "habilitado": 1
+            },
+            {
+                "id": 155,
+                "especialidad_id": 41,
+                "nombre": "Neurofisiología clínica",
+                "habilitado": 1
+            },
+            {
+                "id": 156,
+                "especialidad_id": 41,
+                "nombre": "Neuroradiología quirúrgica endovascular",
+                "habilitado": 1
+            },
+            {
+                "id": 157,
+                "especialidad_id": 41,
+                "nombre": "Medicina paliativa",
+                "habilitado": 1
+            },
+            {
+                "id": 158,
+                "especialidad_id": 41,
+                "nombre": "Discapacidades del neurodesarrollo",
+                "habilitado": 1
+            },
+            {
+                "id": 159,
+                "especialidad_id": 41,
+                "nombre": "Medicina neuromuscular",
+                "habilitado": 1
+            },
+            {
+                "id": 160,
+                "especialidad_id": 41,
+                "nombre": "Medicina para el dolor",
+                "habilitado": 1
+            },
+            {
+                "id": 161,
+                "especialidad_id": 41,
+                "nombre": "Medicina del sueño",
+                "habilitado": 1
+            },
+            {
+                "id": 162,
+                "especialidad_id": 41,
+                "nombre": "Neurología vascular",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 42,
+        "nombre": "Nutrición",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 163,
+                "especialidad_id": 42,
+                "nombre": "Nutrición pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 43,
+        "nombre": "Obstetricia",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 44,
+        "nombre": "Oftalmología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 164,
+                "especialidad_id": 44,
+                "nombre": "Segmento anterior, córnea",
+                "habilitado": 1
+            },
+            {
+                "id": 165,
+                "especialidad_id": 44,
+                "nombre": "Glaucoma",
+                "habilitado": 1
+            },
+            {
+                "id": 166,
+                "especialidad_id": 44,
+                "nombre": "Neurooftalmología",
+                "habilitado": 1
+            },
+            {
+                "id": 167,
+                "especialidad_id": 44,
+                "nombre": "Oncología ocular",
+                "habilitado": 1
+            },
+            {
+                "id": 168,
+                "especialidad_id": 44,
+                "nombre": "Oculoplásticos, órbita",
+                "habilitado": 1
+            },
+            {
+                "id": 169,
+                "especialidad_id": 44,
+                "nombre": "Cirugía plástica y reconstructiva oftálmica",
+                "habilitado": 1
+            },
+            {
+                "id": 170,
+                "especialidad_id": 44,
+                "nombre": "Retina, vítreo",
+                "habilitado": 1
+            },
+            {
+                "id": 171,
+                "especialidad_id": 44,
+                "nombre": "Estrabismo ",
+                "habilitado": 1
+            },
+            {
+                "id": 172,
+                "especialidad_id": 44,
+                "nombre": "Oftalmología pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 45,
+        "nombre": "Oncología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 173,
+                "especialidad_id": 45,
+                "nombre": "Oncología quirúrgica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 46,
+        "nombre": "Otorrinolaringología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 174,
+                "especialidad_id": 46,
+                "nombre": "Oído",
+                "habilitado": 1
+            },
+            {
+                "id": 175,
+                "especialidad_id": 46,
+                "nombre": "Nariz",
+                "habilitado": 1
+            },
+            {
+                "id": 176,
+                "especialidad_id": 46,
+                "nombre": "Garganta",
+                "habilitado": 1
+            },
+            {
+                "id": 177,
+                "especialidad_id": 46,
+                "nombre": "Alergia",
+                "habilitado": 1
+            },
+            {
+                "id": 178,
+                "especialidad_id": 46,
+                "nombre": "Cirugía facial y reconstructiva",
+                "habilitado": 1
+            },
+            {
+                "id": 179,
+                "especialidad_id": 46,
+                "nombre": "Cabeza y cuello",
+                "habilitado": 1
+            },
+            {
+                "id": 180,
+                "especialidad_id": 46,
+                "nombre": "Rinología y cirugía sinusal",
+                "habilitado": 1
+            },
+            {
+                "id": 181,
+                "especialidad_id": 46,
+                "nombre": "Laringología ",
+                "habilitado": 1
+            },
+            {
+                "id": 182,
+                "especialidad_id": 46,
+                "nombre": "Audiología",
+                "habilitado": 1
+            },
+            {
+                "id": 183,
+                "especialidad_id": 46,
+                "nombre": "Otoneurología",
+                "habilitado": 1
+            },
+            {
+                "id": 184,
+                "especialidad_id": 46,
+                "nombre": "Otorrinolaringología oncológica",
+                "habilitado": 1
+            },
+            {
+                "id": 185,
+                "especialidad_id": 46,
+                "nombre": "Otorrinolaringología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 186,
+                "especialidad_id": 46,
+                "nombre": "Medicina del sueño",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 47,
+        "nombre": "Patología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 187,
+                "especialidad_id": 47,
+                "nombre": "Patología anatómica",
+                "habilitado": 1
+            },
+            {
+                "id": 188,
+                "especialidad_id": 47,
+                "nombre": "Medicina de transfusión.",
+                "habilitado": 1
+            },
+            {
+                "id": 189,
+                "especialidad_id": 47,
+                "nombre": "Patología química",
+                "habilitado": 1
+            },
+            {
+                "id": 190,
+                "especialidad_id": 47,
+                "nombre": "Patologia clinica",
+                "habilitado": 1
+            },
+            {
+                "id": 191,
+                "especialidad_id": 47,
+                "nombre": "Citopatología",
+                "habilitado": 1
+            },
+            {
+                "id": 192,
+                "especialidad_id": 47,
+                "nombre": "Patología forense",
+                "habilitado": 1
+            },
+            {
+                "id": 193,
+                "especialidad_id": 47,
+                "nombre": "Patología genética",
+                "habilitado": 1
+            },
+            {
+                "id": 194,
+                "especialidad_id": 47,
+                "nombre": "Hematología",
+                "habilitado": 1
+            },
+            {
+                "id": 195,
+                "especialidad_id": 47,
+                "nombre": "Inmunopatología",
+                "habilitado": 1
+            },
+            {
+                "id": 196,
+                "especialidad_id": 47,
+                "nombre": "Microbiología médica",
+                "habilitado": 1
+            },
+            {
+                "id": 197,
+                "especialidad_id": 47,
+                "nombre": "Patología molecular",
+                "habilitado": 1
+            },
+            {
+                "id": 198,
+                "especialidad_id": 47,
+                "nombre": "Neuropatología",
+                "habilitado": 1
+            },
+            {
+                "id": 199,
+                "especialidad_id": 47,
+                "nombre": "Patología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 200,
+                "especialidad_id": 47,
+                "nombre": "Patología del tracto genital inferior y colposcopía",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 48,
+        "nombre": "Pediatría",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 201,
+                "especialidad_id": 48,
+                "nombre": "Medicina para adolescentes",
+                "habilitado": 1
+            },
+            {
+                "id": 202,
+                "especialidad_id": 48,
+                "nombre": "Neonatología",
+                "habilitado": 1
+            },
+            {
+                "id": 203,
+                "especialidad_id": 48,
+                "nombre": "Pediatría de abuso infantil",
+                "habilitado": 1
+            },
+            {
+                "id": 204,
+                "especialidad_id": 48,
+                "nombre": "Pediatría del comportamiento conductual",
+                "habilitado": 1
+            },
+            {
+                "id": 205,
+                "especialidad_id": 48,
+                "nombre": "Medicina neonatal-perinatal",
+                "habilitado": 1
+            },
+            {
+                "id": 206,
+                "especialidad_id": 48,
+                "nombre": "Cardiología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 207,
+                "especialidad_id": 48,
+                "nombre": "Cuidados intensivos pediátricos",
+                "habilitado": 1
+            },
+            {
+                "id": 208,
+                "especialidad_id": 48,
+                "nombre": "Endocrinología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 209,
+                "especialidad_id": 48,
+                "nombre": "Gastroenterología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 210,
+                "especialidad_id": 48,
+                "nombre": "Hematología-oncología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 211,
+                "especialidad_id": 48,
+                "nombre": "Infectología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 212,
+                "especialidad_id": 48,
+                "nombre": "Nefrología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 213,
+                "especialidad_id": 48,
+                "nombre": "Neumología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 214,
+                "especialidad_id": 48,
+                "nombre": "Reumatología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 215,
+                "especialidad_id": 48,
+                "nombre": "Medicina deportiva pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 216,
+                "especialidad_id": 48,
+                "nombre": "Hepatología de trasplante pediátrico",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 49,
+        "nombre": "Psiquiatría",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 217,
+                "especialidad_id": 49,
+                "nombre": "Adicciones",
+                "habilitado": 1
+            },
+            {
+                "id": 218,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría infanto juvenil",
+                "habilitado": 1
+            },
+            {
+                "id": 219,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría comunitaria",
+                "habilitado": 1
+            },
+            {
+                "id": 220,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría de enlace",
+                "habilitado": 1
+            },
+            {
+                "id": 221,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría de emergencia",
+                "habilitado": 1
+            },
+            {
+                "id": 222,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría forense",
+                "habilitado": 1
+            },
+            {
+                "id": 223,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría geriátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 224,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría de retraso mental",
+                "habilitado": 1
+            },
+            {
+                "id": 225,
+                "especialidad_id": 49,
+                "nombre": "Psiquiatría militar",
+                "habilitado": 1
+            },
+            {
+                "id": 226,
+                "especialidad_id": 49,
+                "nombre": "Medicina para el dolor",
+                "habilitado": 1
+            },
+            {
+                "id": 227,
+                "especialidad_id": 49,
+                "nombre": "Investigación psiquiátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 228,
+                "especialidad_id": 49,
+                "nombre": "Medicina psicosomática",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 50,
+        "nombre": "Radioterapia",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 51,
+        "nombre": "Reumatología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 229,
+                "especialidad_id": 51,
+                "nombre": "Reumatología pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 52,
+        "nombre": "Salud pública",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 53,
+        "nombre": "Salud y ambiente",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 54,
+        "nombre": "Sexología clínica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 55,
+        "nombre": "Terapia intensiva",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 230,
+                "especialidad_id": 55,
+                "nombre": "Terapia intensiva pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 56,
+        "nombre": "Tocoginecología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 57,
+        "nombre": "Toxicología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 58,
+        "nombre": "Traumatología y ortopedia",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 231,
+                "especialidad_id": 58,
+                "nombre": "Ortopedia general",
+                "habilitado": 1
+            },
+            {
+                "id": 232,
+                "especialidad_id": 58,
+                "nombre": "Cirugía del trauma y fracturas",
+                "habilitado": 1
+            },
+            {
+                "id": 233,
+                "especialidad_id": 58,
+                "nombre": "Reemplazos articulares",
+                "habilitado": 1
+            },
+            {
+                "id": 234,
+                "especialidad_id": 58,
+                "nombre": "Cirugía artroscópica, hombro y medicina deportiva",
+                "habilitado": 1
+            },
+            {
+                "id": 235,
+                "especialidad_id": 58,
+                "nombre": "Cirugía artroscópica, rodilla y medicina deportiva",
+                "habilitado": 1
+            },
+            {
+                "id": 236,
+                "especialidad_id": 58,
+                "nombre": "Unidad de columna vertebral",
+                "habilitado": 1
+            },
+            {
+                "id": 237,
+                "especialidad_id": 58,
+                "nombre": "Pierna, tobillo y pie",
+                "habilitado": 1
+            },
+            {
+                "id": 238,
+                "especialidad_id": 58,
+                "nombre": "Mano",
+                "habilitado": 1
+            },
+            {
+                "id": 239,
+                "especialidad_id": 58,
+                "nombre": "Rodilla",
+                "habilitado": 1
+            },
+            {
+                "id": 240,
+                "especialidad_id": 58,
+                "nombre": "Ortopedia infantil",
+                "habilitado": 1
+            },
+            {
+                "id": 241,
+                "especialidad_id": 58,
+                "nombre": "Oncología ortopédica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 59,
+        "nombre": "Urología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 242,
+                "especialidad_id": 59,
+                "nombre": "Urología pediátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 243,
+                "especialidad_id": 59,
+                "nombre": "Oncología urológica",
+                "habilitado": 1
+            },
+            {
+                "id": 244,
+                "especialidad_id": 59,
+                "nombre": "Disfunción eréctil",
+                "habilitado": 1
+            },
+            {
+                "id": 245,
+                "especialidad_id": 59,
+                "nombre": "Trasplante renal",
+                "habilitado": 1
+            },
+            {
+                "id": 246,
+                "especialidad_id": 59,
+                "nombre": "Infertilidad masculina",
+                "habilitado": 1
+            },
+            {
+                "id": 247,
+                "especialidad_id": 59,
+                "nombre": "Cálculos",
+                "habilitado": 1
+            },
+            {
+                "id": 248,
+                "especialidad_id": 59,
+                "nombre": "Urología femenina",
+                "habilitado": 1
+            },
+            {
+                "id": 249,
+                "especialidad_id": 59,
+                "nombre": "Neurourología",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 60,
+        "nombre": "Odontología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 61,
+        "nombre": "Psicología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 62,
+        "nombre": "Kinesiología",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 250,
+                "especialidad_id": 62,
+                "nombre": "Auditoria kinefisiátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 251,
+                "especialidad_id": 62,
+                "nombre": "Fonoestomatología",
+                "habilitado": 1
+            },
+            {
+                "id": 252,
+                "especialidad_id": 62,
+                "nombre": "Gerontología y geriatría kinefisiátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 253,
+                "especialidad_id": 62,
+                "nombre": "Kinesiología deportiva",
+                "habilitado": 1
+            },
+            {
+                "id": 254,
+                "especialidad_id": 62,
+                "nombre": "Kinesiología y fisiatría en estimulación temprana y psicomotricidad",
+                "habilitado": 1
+            },
+            {
+                "id": 255,
+                "especialidad_id": 62,
+                "nombre": "Kinesiología y fisiatría en ortopedia y traumatología",
+                "habilitado": 1
+            },
+            {
+                "id": 256,
+                "especialidad_id": 62,
+                "nombre": "Kinesiología y fisiatría intensivista",
+                "habilitado": 1
+            },
+            {
+                "id": 257,
+                "especialidad_id": 62,
+                "nombre": "Kinesiología y fisiatría pediátrica y neonatal    ",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 63,
+        "nombre": "Lactancia materna y crianza – puericultora",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 64,
+        "nombre": "Fonoaudiología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 65,
+        "nombre": "Partera",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 66,
+        "nombre": "Enfermería",
+        "habilitado": 1,
+        "subespecialidades": [
+            {
+                "id": 258,
+                "especialidad_id": 66,
+                "nombre": "Enfermería de cuidados médico-quirúrgicos ",
+                "habilitado": 1
+            },
+            {
+                "id": 259,
+                "especialidad_id": 66,
+                "nombre": "Enfermería de terapia intensiva",
+                "habilitado": 1
+            },
+            {
+                "id": 260,
+                "especialidad_id": 66,
+                "nombre": "Enfermería de salud mental",
+                "habilitado": 1
+            },
+            {
+                "id": 261,
+                "especialidad_id": 66,
+                "nombre": "Enfermería del trabajo",
+                "habilitado": 1
+            },
+            {
+                "id": 262,
+                "especialidad_id": 66,
+                "nombre": "Enfermería familiar y comunitaria",
+                "habilitado": 1
+            },
+            {
+                "id": 263,
+                "especialidad_id": 66,
+                "nombre": "Enfermería geriátrica",
+                "habilitado": 1
+            },
+            {
+                "id": 264,
+                "especialidad_id": 66,
+                "nombre": "Enfermería obstétrico-ginecológica",
+                "habilitado": 1
+            },
+            {
+                "id": 265,
+                "especialidad_id": 66,
+                "nombre": "Enfermería pediátrica",
+                "habilitado": 1
+            }
+        ]
+    },
+    {
+        "id": 67,
+        "nombre": "Fisioterapeutas",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 68,
+        "nombre": "Estimulación pediátrica",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 69,
+        "nombre": "Logopedas",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 70,
+        "nombre": "Matronas",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 71,
+        "nombre": "Nutrición (Licenciados)",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 72,
+        "nombre": "Ópticos y optometristas",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 73,
+        "nombre": "Quiropráctico",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 74,
+        "nombre": "Podología",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 75,
+        "nombre": "Terapia ocupacional",
+        "habilitado": 1,
+        "subespecialidades": []
+    },
+    {
+        "id": 76,
+        "nombre": "Farmacia y química",
+        "habilitado": 1,
+        "subespecialidades": []
+    }
+]
