@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Image, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 const EditProfile = ({ route, navigation }) => {
@@ -9,7 +9,9 @@ const EditProfile = ({ route, navigation }) => {
         apellido: '',
         email: '',
         direccion: '',
-        contraseña: '',
+        contrasenia: '',
+        nuevaContrasenia: '',
+        repetirContrasenia: '',
         foto: '',
     });
 
@@ -43,55 +45,97 @@ const EditProfile = ({ route, navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.photoContainer}>
-                <Image
-                    source={{ uri: userData.foto || 'https://via.placeholder.com/100' }}
-                    style={styles.profileImage}
-                />
-                <TouchableOpacity onPress={pickImage}>
-                    <Text style={styles.changePhotoText}>Cambiar foto</Text>
-                </TouchableOpacity>
-            </View>
+        <ScrollView>
+            <View style={styles.container}>
+                <View style={styles.photoContainer}>
+                    <Image
+                        source={{ uri: userData.foto || 'https://via.placeholder.com/100' }}
+                        style={styles.profileImage}
+                    />
+                    <TouchableOpacity onPress={pickImage}>
+                        <Text style={styles.changePhotoText}>Cambiar foto</Text>
+                    </TouchableOpacity>
+                </View>
 
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setUserData({ ...userData, name: text })}
-                value={userData.name}
-                placeholder="Nombre"
-            />
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setUserData({ ...userData, apellido: text })}
-                value={userData.apellido}
-                placeholder="Apellido"
-            />
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setUserData({ ...userData, direccion: text })}
-                value={userData.direccion}
-                placeholder="Dirección"
-            />
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setUserData({ ...userData, contraseña: text })}
-                value={userData.contraseña}
-                placeholder="Contraseña"
-                secureTextEntry
-            />
-            {isSaving ? (
-                <ActivityIndicator size="large" color="#0000ff" />
-            ) : (
-                <Button title="Guardar Cambios" onPress={handleSave} disabled={isSaving} />
-            )}
-        </View>
+
+                <View style={styles.contentProfileText}>
+                    <Text style={styles.labelProfileText}>Nombre</Text>
+                    <TextInput
+                        style={styles.profileText}
+                        onChangeText={(text) => setUserData({ ...userData, name: text })}
+                        value={userData.name}
+                        placeholder="Nombre"
+                    />
+                </View>
+                <View style={styles.contentProfileText}>
+                    <Text style={styles.labelProfileText}>Apellido</Text>
+                    <TextInput
+                        style={styles.profileText}
+                        onChangeText={(text) => setUserData({ ...userData, apellido: text })}
+                        value={userData.apellido}
+                        placeholder="Apellido"
+                    />
+                </View>
+                <View style={styles.contentProfileText}>
+                    <Text style={styles.labelProfileText}>Dirección</Text>
+                    <TextInput
+                        style={styles.profileText}
+                        onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                        value={userData.direccion}
+                        placeholder="Dirección"
+                    />
+                </View>
+                <View style={{ width: '100%', marginTop: 9 }}>
+                    <Text style={{ fontSize: 17, fontWeight: '400', marginBottom: 5 }}>Cambiar contraseña</Text>
+                    <View style={styles.contentProfileText}>
+                        <Text style={styles.labelProfileText}>Actual</Text>
+                        <TextInput
+                            style={styles.profileText}
+                            onChangeText={(text) => setUserData({ ...userData, contrasenia: text })}
+                            value={userData.contrasenia}
+                            placeholder="Contraseña"
+                            secureTextEntry
+                        />
+                    </View>
+                    <View style={styles.contentProfileText}>
+                        <Text style={styles.labelProfileText}>Nueva contraseña</Text>
+                        <TextInput
+                            style={styles.profileText}
+                            onChangeText={(text) => setUserData({ ...userData, nuevaContrasenia: text })}
+                            value={userData.contrasenia}
+                            placeholder="Contraseña"
+                            autoCompleteType="off"
+                            textContentType="none"
+                            secureTextEntry
+                        />
+                    </View>
+                    <View style={styles.contentProfileText}>
+                        <Text style={styles.labelProfileText}>Repetir nueva contraseña</Text>
+                        <TextInput
+                            style={styles.profileText}
+                            onChangeText={(text) => setUserData({ ...userData, repetirContrasenia: text })}
+                            value={userData.contrasenia}
+                            placeholder="Contraseña"
+                            secureTextEntry
+                        />
+                    </View>
+                </View>
+                {isSaving ? (
+                    <ActivityIndicator size="large" color="#0000ff" />
+                ) : (
+                    <TouchableOpacity style={styles.button} onPress={handleSave} disabled={isSaving}>
+                        <Text style={styles.buttonText}>Guardar cambios</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'top',
         alignItems: 'center',
         padding: 20,
         backgroundColor: '#f5f5f5',
@@ -117,6 +161,38 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 5,
+    },
+    button: {
+        marginTop: 40,
+        width: '100%',
+        backgroundColor: '#27b4e4', // Color de fondo
+        padding: 10, // Relleno
+        borderRadius: 5, // Bordes redondeados
+        alignItems: 'center', // Alineación del texto en el botón
+    },
+    buttonText: {
+        color: 'white', // Color del texto
+        fontSize: 16, // Tamaño del texto
+    },
+    contentProfileText: {
+        paddingVertical: 4,
+        marginBottom: 7,
+        width: '100%',
+    },
+    profileText: {
+        width: '100%',
+        fontWeight: '400',
+        fontSize: 16,
+        color: '#383b3d',
+        borderWidth: 0.4,
+        padding: 10,
+        borderRadius: 6,
+        borderBottomColor: '#5f6367',
+    },
+    labelProfileText: {
+        fontSize: 13,
+        color: '#5f6367',
+        marginBottom: 4,
     },
 });
 

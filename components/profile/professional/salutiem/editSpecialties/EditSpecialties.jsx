@@ -105,11 +105,13 @@ const styles = StyleSheet.create({
     closeButton: {
         // backgroundColor: 'red',
         maxWidth: 26,
-        textAlign: 'right'
+        marginLeft: 16,
         // Estilos adicionales para el botón de cierre si es necesario
     },
     closeButtonText: {
         color: 'black',
+        // textAlign: 'center',
+        // textAlignVertical: 'bottom',
         textAlign: 'right',
         // backgroundColor:'green',
         // Otros estilos para el texto "X" si es necesario

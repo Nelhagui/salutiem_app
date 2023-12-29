@@ -1,19 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Image, StyleSheet, ActivityIndicator } from 'react-native';
-import { TextInput, Text, Button } from 'react-native-paper';
+import {
+    View,
+    ScrollView,
+    Image,
+    StyleSheet,
+    ActivityIndicator,
+    TextInput,
+    Text,
+    Button,
+    KeyboardAvoidingView,
+    Platform
+} from 'react-native';
+import { getPerfil } from '../../../../src/services/servicesRolMedico';
+
 import { Chip } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
 
+import { useSchedulesContext } from '../../../../src/context/SchedulesContext';
+
+
 
 const ProfileSalutiem = ({ navigation }) => {
+
+    const { schedules, setSchedules } = useSchedulesContext();
+    const [horarios, setHorarios] = useState({})
+    const [selectedLocation, setSelectedLocation] = useState(null);
+
+    const handleSearchButtonPress = () => {
+        navigation.navigate('AddressSearch');
+    };
+    const handleOnPress = (location) => {
+        setSelectedLocation(location);
+    };
+
     const especialidadesArray = [
         { id: 1, nombre: "Cardiología" },
         { id: 2, nombre: "Neurología" },
         { id: 3, nombre: "Traumatología" },
         { id: 4, nombre: "Radiología" },
         { id: 5, nombre: "Oncología" },
-        { id: 6, nombre: "Dermatología" },
-        // ... más especialidades ...
+        { id: 6, nombre: "Dermatología" }
     ];
     const [data, setData] = useState({
         miniBio: '',
@@ -22,18 +48,19 @@ const ProfileSalutiem = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => {
-            const profileData = {
-                nombre: "Nelson",
-                apellido: "Aguiar",
-                email: "nelson@example.com",
-                direccion: "Calle Falsa 123",
-                contraseña: "******", // Contraseña oculta
-                foto: "https://tu-enlace-de-imagen.com/foto.jpg" // Reemplaza con la URL de la imagen
+        const fetchDataPerfil = async () => {
+            try {
+                const profileData = await getPerfil();
+                setData(profileData);
+                setSchedules(profileData.horarios)
+            } catch (error) {
+                console.error('Error al obtener datos del perfil:', error);
+            } finally {
+                setLoading(false);
             }
-            setData(profileData);
-            setLoading(false);
-        }, 2000); // 2 segundos de delay para simular la carga
+        };
+
+        fetchDataPerfil();
     }, []);
 
     const handleEditPress = () => {
@@ -41,115 +68,151 @@ const ProfileSalutiem = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            {loading ? (
-                <ActivityIndicator size="large" color="#0000ff" />
-            ) : (
-                <ScrollView style={styles.container}>
-                    <View style={styles.containerSection}>
-                        <Text style={styles.subtitle}>Datos Profesionales</Text>
-                        <TextInput
-                            label="Nro Matrícula Nacional"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Nro Matrícula Provincial"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                    </View>
-                    <View style={styles.containerSection}>
-                        <Text style={styles.subtitle}>Domicilio Consultario Principal</Text>
-                        <TextInput
-                            label="Provincia"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Calle"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Numeración"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Piso y Depto"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                    </View>
-                    <View style={styles.containerSection}>
-                        <Text style={styles.subtitle}>Domicilio Consultario Secundario</Text>
-                        <TextInput
-                            label="Provincia"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Calle"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Numeración"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Piso y Depto"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                    </View>
-                    <View style={styles.containerSection}>
-                        <Text style={styles.subtitle}>Precios Consultas</Text>
-                        <TextInput
-                            label="Precio Consulta Presencial"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                        <TextInput
-                            label="Precio Consulta Virtual"
-                            value={data.miniBio}
-                            mode="outlined"
-                            style={{ marginBottom: 10 }}
-                        />
-                    </View>
-                    <View style={styles.containerSection}>
-                        <View style={styles.headerChipContainer}>
-                            <Text style={styles.subtitle}>Especialidades</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('EditSpecialties', { especialidadesPreseleccionadas: especialidadesArray })}>
-                                <Text style={styles.configureText}>Configurar</Text>
-                            </TouchableOpacity>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            enabled
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 75 : 0}
+        >
+            <View style={styles.container}>
+                {loading ? (
+                    <ActivityIndicator size="large" color="#0000ff" />
+                ) : (
+                    <ScrollView style={styles.container}>
+                        <View style={styles.containerSection}>
+                            <View style={styles.headerOptionContainer}>
+                                <Text style={styles.subtitle}>Horarios</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate('EditSchedules', { horarios: schedules })}>
+                                    <Text style={styles.configureText}>Configurar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row', marginTop: 10, marginBottom: 5 }}>
+                                <Text style={schedules?.lunes?.length > 0 ? styles.itemsDay : styles.itemsDayInactive}>Lun</Text>
+                                <Text style={schedules?.martes?.length > 0 ? styles.itemsDay : styles.itemsDayInactive}>Mar</Text>
+                                <Text style={schedules?.miercoles?.length > 0 ? styles.itemsDay : styles.itemsDayInactive}>Miér</Text>
+                                <Text style={schedules?.jueves?.length > 0 ? styles.itemsDay : styles.itemsDayInactive}>Jue</Text>
+                                <Text style={schedules?.viernes?.length > 0 ? styles.itemsDay : styles.itemsDayInactive}>Vie</Text>
+                                <Text style={schedules?.sabado?.length > 0 ? styles.itemsDay : styles.itemsDayInactive}>Sáb</Text>
+                                <Text style={schedules?.domingo?.length > 0 ? styles.itemsDay : styles.itemsDayInactive}>Dom</Text>
+                            </View>
+                        </View>
+                        <View style={styles.containerSection}>
+                            <Text style={styles.subtitle}>Datos Profesionales</Text>
 
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Nro Matrícula Nacional</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.matriculaNacional}
+                                    placeholder="Nro Matrícula Nacional"
+                                />
+                            </View>
+
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Nro Matrícula Provincial</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.matriculaProvincial}
+                                    placeholder="Nro Matrícula Provincial"
+                                />
+                            </View>
                         </View>
-                        <View style={styles.chipContainer}>
-                            <Chip mode="outlined">Example Chip</Chip>
+
+                        <View style={styles.containerSection}>
+                            <Text style={styles.subtitle}>Domicilio Consultorio Principal</Text>
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Dirección</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.domicilioConsultorioPrincipal}
+                                    placeholder="ingrese dirección"
+                                />
+                            </View>
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Piso y Depto</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.pisoDeptoPrincipal}
+                                    placeholder="ingrese piso y depto"
+                                />
+                            </View>
                         </View>
-                    </View>
-                    <Button title="Editar Perfil" onPress={handleEditPress} />
-                </ScrollView>
-            )}
-        </View>
+                        <View style={styles.containerSection}>
+                            <Text style={styles.subtitle}>Domicilio Consultorio Secundario</Text>
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Dirección</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.domicilioConsultorioSecundario}
+                                    placeholder="ingrese dirección"
+                                />
+                            </View>
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Piso y Depto</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.pisoDeptoSecundario}
+                                    placeholder="ingrese piso y depto"
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.containerSection}>
+                            <Text style={styles.subtitle}>Precios Consultas</Text>
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Precio Consulta Presencial</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.precioConsultaPresencial}
+                                    placeholder="ingrese precio"
+                                />
+                            </View>
+                            <View style={styles.contentProfileText}>
+                                <Text style={styles.labelProfileText}>Precio Consulta Virtual</Text>
+                                <TextInput
+                                    style={styles.profileText}
+                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
+                                    value={data?.precioConsultaVirtual}
+                                    placeholder="ingrese precio"
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.containerSection}>
+                            <View style={styles.headerOptionContainer}>
+                                <Text style={styles.subtitle}>Especialidades</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate('EditSpecialties', { especialidadesPreseleccionadas: especialidadesArray })}>
+                                    <Text style={styles.configureText}>Configurar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.chipContainer}>
+                                <Chip mode="outlined">Example Chip</Chip>
+                            </View>
+                        </View>
+                        <Button title="Editar Perfil" onPress={handleEditPress} />
+                    </ScrollView>
+                )}
+            </View>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
+    containerMap: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: 50,
+    },
+    map: {
+        flex: 1,
+        width: '100%',
+    },
     container: {
         flex: 1,
         // No necesitas justifyContent ni alignItems aquí si quieres que los hijos ocupen todo el ancho
@@ -157,7 +220,7 @@ const styles = StyleSheet.create({
     },
     containerSection: {
         paddingTop: 20,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     chipContainer: {
         flexDirection: 'row', // Organiza los chips horizontalmente y permite el wrapping
@@ -176,22 +239,52 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     subtitle: {
-        fontSize: 24
+        fontSize: 24,
+        marginBottom: 7,
     },
-    headerChipContainer: {
+    headerOptionContainer: {
+        paddingTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center', // Esto asegura que los Text estén alineados verticalmente
-        paddingHorizontal: 10, // Añade un poco de espacio en los extremos
-    },
-    subtitle: {
-        fontSize: 24,
-        // Asegúrate de que el Text no tenga un ancho fijo para que no empuje al otro Text fuera de la pantalla
+        alignItems: 'center',
+        paddingRight: 5
     },
     configureText: {
         textDecorationLine: 'underline'
-        // Estilo para el texto de 'Configurar', como un peso de fuente diferente o color si es necesario
     },
+    contentProfileText: {
+        paddingVertical: 4,
+        marginBottom: 7,
+    },
+    profileText: {
+        fontWeight: '400',
+        fontSize: 16,
+        color: '#383b3d',
+        borderWidth: 0.4,
+        padding: 10,
+        borderRadius: 6,
+        borderBottomColor: '#5f6367',
+    },
+    labelProfileText: {
+        fontSize: 13,
+        color: '#5f6367',
+        marginBottom: 4,
+    },
+    itemsDay: {
+        marginRight: 6,
+        borderWidth: 0.5,
+        paddingHorizontal: 8,
+        paddingVertical: 3,
+        borderRadius: 5
+    },
+    itemsDayInactive: {
+        marginRight: 6,
+        borderWidth: 0.5,
+        opacity: 0.4,
+        paddingHorizontal: 8,
+        paddingVertical: 3,
+        borderRadius: 5
+    }
 });
 
 export default ProfileSalutiem;

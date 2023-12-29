@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Alert, Text, TouchableOpacity, ActivityIndicator, Animated, FlatList } from 'react-native';
+import { View, Alert, Text, TouchableOpacity, ActivityIndicator, Dimensions, Animated, FlatList, TextInput } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import * as Location from 'expo-location';
 import CurrentLocationButton from './components/partials/CurrentLocationButton';
@@ -7,15 +7,19 @@ import SearchRegionButton from './components/partials/SearchRegionButton';
 import direcciones from './direccciones.json'
 import { getDistance } from './components/utilities/locationUtils';
 import styles from './components/styles/MapComponentStyles';
+import { getMedicos }  from './src/services/services';
 
 const MapComponent = ({ navigation }) => {
-    const [expandedHeight] = useState(new Animated.Value(70)); // Altura inicial del contenedor.
+    const [expandedHeight] = useState(new Animated.Value(100)); // Altura inicial del contenedor.
+    const screenHeight = Dimensions.get('window').height;
+    const threeQuartersHeight = screenHeight * 0.65;
 
     const [mapRegion, setMapRegion] = useState(null);
     const [initialRegion, setInitialRegion] = useState({
         latitude: -34.605896, // Centro de Buenos Aires
         longitude: -58.381590
     });
+
 
     const [currentLocation, setCurrentLocation] = useState({
         latitude: 37.78825, // Valores por defecto
@@ -25,12 +29,16 @@ const MapComponent = ({ navigation }) => {
     const [filteredPoints, setFilteredPoints] = useState([]);
     const [loading, setLoading] = useState(true);  // Estado para el efecto de carga
     const [showSearchButton, setShowSearchButton] = useState(false);
+    const [searchText, setSearchText] = useState('');
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [timeoutId, setTimeoutId] = useState(null);
+    const [isSearching, setIsSearching] = useState(false)
 
     // Función para expandir el contenedor.
     const expandContainer = () => {
         Animated.timing(expandedHeight, {
-            toValue: 200, // Altura final del contenedor (3/4 de la pantalla sería más alto).
-            duration: 300,
+            toValue: threeQuartersHeight, // Altura final del contenedor (3/4 de la pantalla sería más alto).
+            duration: 400,
             useNativeDriver: false,
         }).start();
     };
@@ -38,13 +46,13 @@ const MapComponent = ({ navigation }) => {
     // Función para colapsar el contenedor.
     const collapseContainer = () => {
         Animated.timing(expandedHeight, {
-            toValue: 50, // Altura inicial del contenedor.
-            duration: 300,
+            toValue: 100, // Altura inicial del contenedor.
+            duration: 400,
             useNativeDriver: false,
         }).start();
     };
 
-    const RADIUS = 3000;  // Radio en metros
+    const RADIUS = 2000;  // Radio en metros
 
     useEffect(() => {
         (async () => {
@@ -113,13 +121,14 @@ const MapComponent = ({ navigation }) => {
             westLon < initialRegion?.longitude - (initialRegion.longitudeDelta / 2) ||
             eastLon > initialRegion?.longitude + (initialRegion.longitudeDelta / 2)) {
             setShowSearchButton(true);
+            console.log('trueee')
         } else {
             setShowSearchButton(false);
+            console.log('falseee')
         }
 
         setMapRegion(region);
     };
-
 
     const searchInThisRegion = () => {
         if (mapRegion) {
@@ -141,6 +150,53 @@ const MapComponent = ({ navigation }) => {
         }
     };
 
+    const filterData = (text) => {
+        setSearchText(text);
+        // Limpia el timeout anterior si hay uno
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        // Establece un nuevo timeout
+        const newTimeoutId = setTimeout(() => {
+            // Aquí realizas la consulta fetch
+            setIsSearching(true)
+            fetch(`tu_endpoint_de_busqueda?query=${text}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Suponiendo que data es el array de resultados
+                    setFilteredPoints(data);
+                })
+                .catch(error => {
+                    console.error('Error al realizar la búsqueda:', error);
+                });
+                setIsSearching(false)
+        }, 600); // Tiempo de espera en milisegundos
+
+        setTimeoutId(newTimeoutId);
+    };
+
+    const toggleContainer = () => {
+        setIsExpanded(!isExpanded);
+        if (isExpanded) {
+            collapseContainer(); // Lógica para colapsar el contenedor
+        } else {
+            expandContainer(); // Lógica para expandir el contenedor
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const result = await getMedicos();
+            console.warn(result);
+          } catch (error) {
+            // Manejar errores aquí
+            console.error('Error en fetchData:', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
 
     return (
         <View style={styles.container}>
@@ -183,22 +239,38 @@ const MapComponent = ({ navigation }) => {
                         <SearchRegionButton onPress={searchInThisRegion} />
                     )}
                     <Animated.View style={[styles.bottomContainer, { height: expandedHeight }]}>
-                        <TouchableOpacity onPress={expandContainer}>
-                            <Text>Expandir</Text>
+                        <TouchableOpacity
+                            onPress={toggleContainer}
+                        >
+                            <Text
+                                style={styles.openCloseButton}
+                            >
+                                {isExpanded ? 'Ocultar lista' : 'Mostrar lista'}
+                            </Text>
                         </TouchableOpacity>
-
-                        <TouchableOpacity onPress={collapseContainer}>
-                            <Text>Colapsar</Text>
-                        </TouchableOpacity>
+                        <View style={styles.contentSearchInput}>
+                            <TextInput
+                                style={styles.searchInput}
+                                value={searchText}
+                                onChangeText={filterData}
+                                placeholder="Busca por especialidad..."
+                                editable={!isSearching}
+                            />
+                        </View>
                         <View>
                             <FlatList
-                            data={filteredPoints}
-                            renderItem={({ item }) => (
-                                <View>
-                                    <Text>{item.nombre}</Text>
-                                    </View>
-                            )}/>
-                                    
+                                data={filteredPoints}
+                                contentContainerStyle={{ paddingBottom: 100 }}
+                                renderItem={({ item }) => (
+                                    <TouchableOpacity onPress={() => handleCalloutPress(item)}>
+                                        <View style={styles.contentList}>
+                                            <View style={styles.itemList}>
+                                                <Text style={styles.textListDireccion}>{item.direccion}</Text>
+                                                <Text style={styles.textListNombreEspecialidad}>{item.nombre}, {item.especialidad}</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                )} />
                         </View>
                     </Animated.View>
                 </>
@@ -207,5 +279,7 @@ const MapComponent = ({ navigation }) => {
         </View>
     );
 };
+
+
 
 export default MapComponent;

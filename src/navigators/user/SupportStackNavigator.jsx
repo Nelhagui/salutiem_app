@@ -1,22 +1,20 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Profile from '../../../components/profile/user/Profile';
-import EditProfile from '../../../components/profile/user/EditProfile';
-import SaveProfileResult from '../../../components/profile/user/SaveProfileResult';
+import Support from '../../../components/support/Support';
 
 
 const Stack = createStackNavigator();
 
-const ProfileStackNavigator = () => {
+const SupportStackNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="Profile">
+        <Stack.Navigator initialRouteName="Support">
             <Stack.Screen
-                name="Profile"
-                component={Profile}
+                name="Support"
+                component={Support}
                 options={{ headerShown: false }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="EditProfile"
                 component={EditProfile}
                 options={{ headerTitle: '', headerBackTitle: '' }}
@@ -25,9 +23,9 @@ const ProfileStackNavigator = () => {
                 name="SaveProfileResult"
                 component={SaveProfileResult}
                 options={{ headerShown: false }}
-            />
+            /> */}
         </Stack.Navigator>
     );
 }
 
-export default ProfileStackNavigator
+export default SupportStackNavigator

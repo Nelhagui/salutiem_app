@@ -13,7 +13,7 @@ export default SearchRegionButton;
 const styles = StyleSheet.create({
     searchButton: {
         position: 'absolute',
-        top: 20,
+        top: 50,
         left: 20,
         right: 20,
         backgroundColor: '#0000ff',
