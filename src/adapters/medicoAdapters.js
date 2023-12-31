@@ -18,7 +18,6 @@ export const adaptPerfilResponse = (data) => {
         domicilioConsultorioSecundario: data?.domicilioConsultorioSecundario,
         precioConsultaPresencial: data?.precioConsultaPresencial,
         precioConsultaVirtual: data?.precioConsultaVirtual,
-        // Otros campos que quieras incluir o transformar
     };
 };
 

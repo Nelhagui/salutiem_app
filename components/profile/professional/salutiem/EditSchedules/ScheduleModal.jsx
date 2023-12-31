@@ -18,8 +18,6 @@ const ScheduleModal = ({ visible, onClose, day }) => {
     const [mostrarSelector, setMostrarSelector] = useState(false);
 
     useEffect(() => {
-        console.log(schedules)
-        console.log(day)
         if (schedules[day]) {
             setSchedulesSelectedToEdit(schedules[day]);
         }
@@ -71,7 +69,7 @@ const ScheduleModal = ({ visible, onClose, day }) => {
         }
         fetchUpdateSchedules();
     };
-    
+
     const fetchUpdateSchedules = async () => {
         try {
             const responseDataUpdate = await updateSchedules(day, schedulesSelectedToEdit);
@@ -85,13 +83,10 @@ const ScheduleModal = ({ visible, onClose, day }) => {
 
     const handleDateChange = (event, date) => {
         if (event.type === 'set') {
-            // El usuario seleccionó una fecha
-            const selecDateString = timeToString(selectedDate);
             const dateEventString = timeToString(date);
             schedulesSelectedToEdit[dataScheduleSelected.index]
             const newSchedulesToEdit = schedulesSelectedToEdit.map((schedules, i) => {
-                if (i === dataScheduleSelected.index) {
-                    // Modifica el objeto solo si es el índice seleccionado
+                if (i === dataScheduleSelected.index) { // Modifica el objeto solo si es el índice seleccionado
                     return { ...schedules, [dataScheduleSelected.timeTitle]: dateEventString };
                 } else {
                     return schedules; // Devuelve el objeto sin cambios para otros índices
