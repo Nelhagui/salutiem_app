@@ -6,8 +6,10 @@ import { arraysHaveDifferences } from '../../../../utilities/arrayUtils';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { updateSchedules } from '../../../../../src/services/servicesRolMedico';
 import { useSchedulesContext } from '../../../../../src/context/SchedulesContext';
+import { useAuth } from '../../../../../src/context/AuthContext';
 
 const ScheduleModal = ({ visible, onClose, day }) => {
+    const {accessToken} = useAuth();
     const { schedules, setSchedules } = useSchedulesContext()
     const [isSaving, setIsSaving] = useState(false);
     const [enableButtonSave, setEnableButtonSave] = useState(false);
@@ -71,13 +73,15 @@ const ScheduleModal = ({ visible, onClose, day }) => {
     };
 
     const fetchUpdateSchedules = async () => {
+        setIsSaving(true)
         try {
-            const responseDataUpdate = await updateSchedules(day, schedulesSelectedToEdit);
+            const responseDataUpdate = await updateSchedules(day, schedulesSelectedToEdit, accessToken);
             setSchedules(responseDataUpdate);
         } catch (error) {
             console.error('Error al obtener datos del perfil:', error);
         } finally {
             onClose();
+            setIsSaving(false)
         }
     };
 
@@ -232,7 +236,7 @@ const ScheduleModal = ({ visible, onClose, day }) => {
                     <View style={styles.containerActions}>
                         <TouchableOpacity
                             style={
-                                enableButtonSave
+                                enableButtonSave && !isSaving
                                     ? styles.button
                                     : styles.buttonDisabled
                             }
@@ -243,9 +247,21 @@ const ScheduleModal = ({ visible, onClose, day }) => {
                             }
                             disabled={isSaving}
                         >
-                            <Text style={styles.buttonText}>Guardar cambios</Text>
+                        {
+                            isSaving
+                            ? <Text style={styles.buttonText}>Guardando...</Text>
+                            : <Text style={styles.buttonText}>Guardar cambios</Text>
+                        }
+                            
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.simpleCloseButton} onPress={() => closeModal()} disabled={isSaving}>
+                        <TouchableOpacity style={styles.simpleCloseButton} 
+                        onPress={() => 
+                        {
+                            isSaving
+                            ? null
+                            : closeModal()
+                        }} 
+                        disabled={isSaving}>
                             <Text style={styles.simpleCloseButtonText}>Cerrar</Text>
                         </TouchableOpacity>
                     </View>

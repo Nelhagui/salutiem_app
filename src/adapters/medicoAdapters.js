@@ -18,6 +18,8 @@ export const adaptPerfilResponse = (data) => {
         domicilioConsultorioSecundario: data?.domicilioConsultorioSecundario,
         precioConsultaPresencial: data?.precioConsultaPresencial,
         precioConsultaVirtual: data?.precioConsultaVirtual,
+        especialidades: data?.especialidades || [],
+        subespecialidades: data?.subespecialidades || [],
     };
 };
 

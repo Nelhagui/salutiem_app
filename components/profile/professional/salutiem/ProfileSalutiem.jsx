@@ -17,42 +17,25 @@ import { Chip } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
 
 import { useSchedulesContext } from '../../../../src/context/SchedulesContext';
+import { useSpecialtiesContext } from '../../../../src/context/SpecialtiesContext';
+import { useAuth } from '../../../../src/context/AuthContext';
 
 
 
 const ProfileSalutiem = ({ navigation }) => {
-
+    const {accessToken} = useAuth();
     const { schedules, setSchedules } = useSchedulesContext();
-    const [horarios, setHorarios] = useState({})
-    const [selectedLocation, setSelectedLocation] = useState(null);
-
-    const handleSearchButtonPress = () => {
-        navigation.navigate('AddressSearch');
-    };
-    const handleOnPress = (location) => {
-        setSelectedLocation(location);
-    };
-
-    const especialidadesArray = [
-        { id: 1, nombre: "Cardiología" },
-        { id: 2, nombre: "Neurología" },
-        { id: 3, nombre: "Traumatología" },
-        { id: 4, nombre: "Radiología" },
-        { id: 5, nombre: "Oncología" },
-        { id: 6, nombre: "Dermatología" }
-    ];
-    const [data, setData] = useState({
-        miniBio: '',
-
-    });
+    const { specialties, setSpecialties } = useSpecialtiesContext();
+    const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchDataPerfil = async () => {
             try {
-                const profileData = await getPerfil();
+                const profileData = await getPerfil(accessToken);
                 setData(profileData);
-                setSchedules(profileData.horarios)
+                setSchedules(profileData?.horarios)
+                setSpecialties([...profileData?.especialidades, ...profileData?.subespecialidades])
             } catch (error) {
                 console.error('Error al obtener datos del perfil:', error);
             } finally {
@@ -63,9 +46,6 @@ const ProfileSalutiem = ({ navigation }) => {
         fetchDataPerfil();
     }, []);
 
-    const handleEditPress = () => {
-        navigation.navigate('EditProfileSalutiem', { userData: data });
-    };
 
     return (
         <KeyboardAvoidingView
@@ -82,7 +62,7 @@ const ProfileSalutiem = ({ navigation }) => {
                         <View style={styles.containerSection}>
                             <View style={styles.headerOptionContainer}>
                                 <Text style={styles.subtitle}>Horarios</Text>
-                                <TouchableOpacity onPress={() => navigation.navigate('EditSchedules', { horarios: schedules })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('EditSchedules')}>
                                     <Text style={styles.configureText}>Configurar</Text>
                                 </TouchableOpacity>
                             </View>
@@ -183,18 +163,25 @@ const ProfileSalutiem = ({ navigation }) => {
                                 />
                             </View>
                         </View>
-                        <View style={styles.containerSection}>
+                        <View style={[styles.containerSection, { marginBottom: 80 }]}>
                             <View style={styles.headerOptionContainer}>
                                 <Text style={styles.subtitle}>Especialidades</Text>
-                                <TouchableOpacity onPress={() => navigation.navigate('EditSpecialties', { especialidadesPreseleccionadas: especialidadesArray })}>
+                                <TouchableOpacity onPress={() => navigation.navigate('EditSpecialties')}>
                                     <Text style={styles.configureText}>Configurar</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.chipContainer}>
-                                <Chip mode="outlined">Example Chip</Chip>
+                                {
+                                    specialties.length > 0
+                                        ?
+                                        specialties.map((specialtie) => {
+                                            return <Chip mode="outlined" style={{marginBottom: 8, marginRight: 8, }} key={Math.random()}>{specialtie?.nombre}</Chip>
+                                        })
+                                        :
+                                        <Text>Sin especialidades</Text>
+                                }
                             </View>
                         </View>
-                        <Button title="Editar Perfil" onPress={handleEditPress} />
                     </ScrollView>
                 )}
             </View>

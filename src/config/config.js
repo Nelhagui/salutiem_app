@@ -4,9 +4,14 @@ export const API_CONFIG = {
         perfil: 'api/medico/perfil',
         agenda: 'api/medico/agenda',
         updateSchedules: 'api/medico/agendas/actualizar',
+        specialties: 'api/especialidades',
+        subSpecialties: 'api/subespecialidades',
     },
     ENDPOINTS_ROL_PACIENTE: {
-        // rol medico
         rolMedicoMiAgenda: 'api/medico/agenda',
+    },
+    ENDPOINTS_AUTH: {
+        login: 'api/login',
+        register: 'api/register',
     },
 };

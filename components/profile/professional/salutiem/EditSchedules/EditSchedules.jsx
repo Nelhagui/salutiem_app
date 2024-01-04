@@ -14,7 +14,6 @@ const EditSchedules = () => {
     };
     const closeModal = () => {
         setModalVisible(false);
-
         setSelectedDay(null);
     };
     

@@ -1,11 +1,11 @@
 import { API_CONFIG } from "../config/config";
 import * as medicoAdapters from './../adapters/medicoAdapters'
 
-export const getPerfil = async () => {
+export const getPerfil = async (accessToken) => {
     try {
         var myHeaders = new Headers();
         myHeaders.append("Accept", "application/json");
-        myHeaders.append("Authorization", "Bearer 1|fKhudNMxcnTeE89UyNl3tvWoJyVCiFzzN8qDSOCZ");
+        myHeaders.append("Authorization", `Bearer ${accessToken}`);
 
         var requestOptions = {
             method: 'GET',
@@ -24,13 +24,36 @@ export const getPerfil = async () => {
     }
 };
 
-export const updateSchedules = async (day, schedules) => {
+export const getSpecialties = async (accessToken) => {
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Accept", "application/json");
+        myHeaders.append("Authorization", `Bearer ${accessToken}`);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS_ROL_MEDICO.specialties}`, requestOptions);
+        const data = await response.json();
+
+        const adaptedPerfilData = medicoAdapters.adaptPerfilResponse(data);
+
+        return adaptedPerfilData;
+
+    } catch (error) {
+        console.error('Error fetching data from endpoint1:', error);
+    }
+};
+
+export const updateSchedules = async (day, schedules, accessToken) => {
     
     try {
         var myHeaders = new Headers();
         myHeaders.append("Accept", "application/json");
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer 1|fKhudNMxcnTeE89UyNl3tvWoJyVCiFzzN8qDSOCZ");
+        myHeaders.append("Authorization", `Bearer ${accessToken}`);
         var raw = JSON.stringify({
             "dia": day,
             "horario": schedules

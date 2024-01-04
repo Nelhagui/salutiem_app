@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 import { Chip } from 'react-native-paper';
+import { useSpecialtiesContext } from '../../../../../src/context/SpecialtiesContext';
 
-const EditSpecialties = ({ route }) => {
-    const { especialidadesPreseleccionadas } = route.params;
+const EditSpecialties = () => {
+    const { specialties, setSpecialties } = useSpecialtiesContext();
     const [searchQuery, setSearchQuery] = useState('');
     const [especialidades, setEspecialidades] = useState([]);
     const [filteredResults, setFilteredResults] = useState([]);
@@ -47,7 +48,7 @@ const EditSpecialties = ({ route }) => {
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 >
-                    {especialidadesPreseleccionadas.map((especialidad, index) => (
+                    {specialties.map((especialidad, index) => (
                         <Chip
                             key={index}
                             mode="outlined"
