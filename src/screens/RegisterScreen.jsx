@@ -1,115 +1,194 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { registerFetch } from '../services/servicesAuth';
 
 const RegisterScreen = ({ navigation }) => {
-    const [nombre, setNombre] = useState('');
-    const [apellido, setApellido] = useState('');
-    const [direccion, setDireccion] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [enableButtonSave, setEnableButtonSave] = useState(false)
+    const [selectRol, setSelectRol] = useState(false)
+    const [isDoctor, setIsDoctor] = useState(false);
+
+    const [dataForm, setDataForm] = useState({
+        nombre: '',
+        apellido: '',
+        direccion: '',
+        email: '',
+        password: '',
+        repeatPassword: ''
+    })
+    const [dataFormErrors, setDataFormErrors] = useState({
+        nombre: '',
+        apellido: '',
+        direccion: '',
+        email: '',
+        password: '',
+        repeatPassword: ''
+    })
+    const [isSaving, setIsSaving] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const isFormValid = () => {
         return (
-            nombre !== '' &&
-            apellido !== '' &&
-            direccion !== '' &&
-            email !== '' &&
-            password !== '' &&
-            password === repeatPassword
+            dataForm.nombre !== '' &&
+            dataForm.apellido !== '' &&
+            dataForm.direccion !== '' &&
+            dataForm.email !== '' &&
+            dataForm.password !== '' &&
+            dataForm.password === dataForm.repeatPassword
         );
     };
 
-    const handleRegister = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            // Simulación de éxito o fracaso del registro
-            const registrationSuccess = true; // Cambiar según la lógica deseada
-
-            if (registrationSuccess) {
-                navigation.navigate('Verification');
-
+    const handleRegister = async () => {
+        setIsSaving(true);
+        setErrorMessage('');
+        try {
+            const response = await registerFetch(dataForm);
+            const data = await response.json()
+            if (response && response.status) {
+                if (response.status === 422) {
+                    handleErrorsFromServer(data?.errors);
+                }
+                else if (response.status === 200) {
+                    navigation.navigate('Verification');
+                } else {
+                    setErrorMessage('Error inesperado, intente nuevamente por favor.');
+                }
             } else {
-                setErrorMessage('Error en el registro. Inténtalo de nuevo.');
+                // Éxito, puedes utilizar los datos devueltos
+                console.log('Éxito:', data);
             }
-            setIsLoading(false);
-        }, 2000);
+        } catch (error) {
+            console.error('Error al obtener datos del perfil:', error);
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    const handleErrorsFromServer = (errors) => {
+        const updatedErrors = { ...dataFormErrors };
+        // Iterar sobre las keys del objeto de errores y actualizar el estado correspondiente
+        Object.keys(errors).forEach((key) => {
+            if (dataFormErrors[key] !== undefined) {
+                updatedErrors[key] = errors[key];
+            }
+        });
+        // Actualizar el estado con los nuevos errores
+        setDataFormErrors(updatedErrors);
+    };
+
+    const handleInputChange = (name, value) => {
+        setDataForm({
+            ...dataForm,
+            [name]: value,
+        });
+
+        // Limpiar el error cuando el usuario comienza a escribir en el campo
+        setDataFormErrors({
+            ...dataFormErrors,
+            [name]: '',
+        });
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Registro</Text>
 
-            <TextInput
-                style={styles.input}
-                onChangeText={setNombre}
-                value={nombre}
-                placeholder="Nombre"
-            />
-
-            <TextInput
-                style={styles.input}
-                onChangeText={setApellido}
-                value={apellido}
-                placeholder="Apellido"
-            />
-
-            <TextInput
-                style={styles.input}
-                onChangeText={setDireccion}
-                value={direccion}
-                placeholder="Dirección"
-            />
-
-            <TextInput
-                style={styles.input}
-                onChangeText={setEmail}
-                value={email}
-                placeholder="Email"
-                keyboardType="email-address"
-            />
-
-            <TextInput
-                style={styles.input}
-                onChangeText={setPassword}
-                value={password}
-                placeholder="Contraseña"
-                secureTextEntry
-            />
-
-            <TextInput
-                style={styles.input}
-                onChangeText={setRepeatPassword}
-                value={repeatPassword}
-                placeholder="Repetir Contraseña"
-                secureTextEntry
-            />
-
-            {isLoading ? (
-                <ActivityIndicator size="large" color="#0000ff" />
-            ) : (
-                <Button
-                    title="Registrarse"
-                    onPress={handleRegister}
-                    disabled={!isFormValid()}
+        selectRol
+            ?
+            <View style={styles.container}>
+                <Text style={styles.title}>Registro</Text>
+                <Text>{isDoctor ? 'Profesional' : 'Paciente'}</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => handleInputChange("nombre", text)}
+                    defaultValue={dataForm?.nombre}
+                    placeholder="Nombre"
                 />
-            )}
 
-            <Button
-                title="¿Ya tienes cuenta? Inicia sesión"
-                onPress={() => navigation.navigate('Login')}
-                disabled={isLoading} // Deshabilita el botón mientras isLoading sea true
-                color="#1E6738"
-            />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => handleInputChange("apellido", text)}
+                    defaultValue={dataForm?.apellido}
+                    placeholder="Apellido"
+                />
 
-            {errorMessage
-                ? <>
-                    <Text style={styles.error}>{errorMessage}</Text>
-                </>
-                : null}
-        </View>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => handleInputChange("direccion", text)}
+                    defaultValue={dataForm?.direccion}
+                    placeholder="Dirección"
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => handleInputChange("email", text)}
+                    defaultValue={dataForm?.email}
+                    placeholder="Email"
+                    keyboardType="email-address"
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => handleInputChange("password", text)}
+                    defaultValue={dataForm?.password}
+                    placeholder="Contraseña"
+                    secureTextEntry
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => handleInputChange("repeatPassword", text)}
+                    defaultValue={dataForm?.repeatPassword}
+                    placeholder="Repetir Contraseña"
+                    secureTextEntry
+                />
+                {
+                    errorMessage
+                        ? <Text style={styles.error}>{errorMessage}</Text>
+                        : null
+                }
+
+                <TouchableOpacity
+                    style={
+                        isFormValid() && !isSaving
+                            ? styles.button
+                            : styles.buttonDisabled
+                    }
+                    onPress={handleRegister}
+                    disabled={!isFormValid() && isSaving}
+                >
+                    {
+                        isSaving
+                            ? <Text style={styles.buttonText}>Procesando...</Text>
+                            : <Text style={styles.buttonText}>Registrarse</Text>
+                    }
+
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={{ marginTop: 30 }}
+                    onPress={() => navigation.navigate('Login')}
+                    disabled={isSaving}
+                >
+                    <Text style={styles.buttonLink}>¿Ya tienes cuenta? Inicia sesión</Text>
+                </TouchableOpacity>
+            </View>
+            :
+            <View style={styles.container}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => { setIsDoctor(false); setSelectRol(true) }}
+                    disabled={isSaving}
+                >
+                    <Text style={styles.buttonText}>Soy Paciente</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => { setIsDoctor(true); setSelectRol(true) }}
+                    disabled={isSaving}
+                >
+                    <Text style={styles.buttonText}>Soy Médico</Text>
+                </TouchableOpacity>
+            </View>
+
     );
 };
 
@@ -134,6 +213,36 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderRadius: 5,
     },
+    button: {
+        marginTop: 40,
+        width: 'auto',
+        backgroundColor: '#27b4e4', // Color de fondo
+        padding: 10, // Relleno
+        borderRadius: 5, // Bordes redondeados
+        alignItems: 'center', // Alineación del texto en el botón
+    },
+    buttonDisabled: {
+        marginTop: 40,
+        width: 'auto',
+        backgroundColor: '#27b4e4', // Color de fondo
+        opacity: 0.5,
+        padding: 10, // Relleno
+        borderRadius: 5, // Bordes redondeados
+        alignItems: 'center', // Alineación del texto en el botón
+    },
+    buttonText: {
+        color: 'white', // Color del texto
+        fontSize: 16, // Tamaño del texto
+    },
+
+    buttonText: {
+        color: 'white', // Color del texto
+        fontSize: 16, // Tamaño del texto
+    },
+    buttonLink: {
+        textDecorationLine: 'underline',
+
+    }
 });
 
 export default RegisterScreen;

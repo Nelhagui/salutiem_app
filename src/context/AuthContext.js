@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isProfessional, setIsProfessional] = useState(true);
+    const [isProfessional, setIsProfessional] = useState(false);
     const [user, setUser] = useState(null)
     const [accessToken, setAccessToken] = useState(null)
 

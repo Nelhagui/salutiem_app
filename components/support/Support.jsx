@@ -45,12 +45,21 @@ const styles = StyleSheet.create({
     },
     questionContainer: {
         marginBottom: 15,
+        marginTop: 10,
+        borderWidth: .5,
+        padding: 9,
+        borderRadius: 5,
     },
     question: {
         fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        marginBottom: 10,
+        fontSize: 17
     },
     answer: {
         marginTop: 5,
+        textAlign: 'center', 
     },
 });
 

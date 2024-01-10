@@ -55,12 +55,13 @@ const Appointments = ({ navigation }) => {
                 style={{
                     textAlign: 'center',
                     paddingTop: 30,
-                    paddingBottom: 20,
+                    paddingBottom: 10,
                     paddingHorizontal: 20,
+                    fontSize: 26,
                     
                 }}
             >
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est quo blanditiis praesentium!
+                Turnos
             </Text>
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
