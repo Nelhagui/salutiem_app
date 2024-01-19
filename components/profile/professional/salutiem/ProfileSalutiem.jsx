@@ -18,21 +18,29 @@ import { TouchableOpacity } from 'react-native';
 
 import { useSchedulesContext } from '../../../../src/context/SchedulesContext';
 import { useSpecialtiesContext } from '../../../../src/context/SpecialtiesContext';
+import { useProfessionalDirectionsContext } from '../../../../src/context/ProfessionalDirectionsContext';
 import { useAuth } from '../../../../src/context/AuthContext';
 
 
 
 const ProfileSalutiem = ({ navigation }) => {
-    const {accessToken} = useAuth();
+    const { accessToken } = useAuth();
     const { schedules, setSchedules } = useSchedulesContext();
     const { specialties, setSpecialties } = useSpecialtiesContext();
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
+    const {
+        secondaryAddress,
+        mainAddress,
+        secondaryCoordinates,
+        mainCoordinates,
+    } = useProfessionalDirectionsContext();
 
     useEffect(() => {
         const fetchDataPerfil = async () => {
             try {
                 const profileData = await getPerfil(accessToken);
+                console.log('profileData', profileData);
                 setData(profileData);
                 setSchedules(profileData?.horarios)
                 setSpecialties([...profileData?.especialidades, ...profileData?.subespecialidades])
@@ -103,11 +111,16 @@ const ProfileSalutiem = ({ navigation }) => {
                         <View style={styles.containerSection}>
                             <Text style={styles.subtitle}>Domicilio Consultorio Principal</Text>
                             <View style={styles.contentProfileText}>
-                                <Text style={styles.labelProfileText}>Dirección</Text>
+                                <Text style={styles.labelProfileText}>Direccións</Text>
                                 <TextInput
                                     style={styles.profileText}
-                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
-                                    value={data?.domicilioConsultorioPrincipal}
+                                    onFocus={() => navigation.navigate('AddressSearch', {
+                                        typeAddress: 'main',
+                                    })}
+                                    value={mainAddress}
+                                    multiline={true}
+                                    textAlign={'left'}
+                                    textAlignVertical={'center'}
                                     placeholder="ingrese dirección"
                                 />
                             </View>
@@ -115,7 +128,6 @@ const ProfileSalutiem = ({ navigation }) => {
                                 <Text style={styles.labelProfileText}>Piso y Depto</Text>
                                 <TextInput
                                     style={styles.profileText}
-                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
                                     value={data?.pisoDeptoPrincipal}
                                     placeholder="ingrese piso y depto"
                                 />
@@ -127,8 +139,13 @@ const ProfileSalutiem = ({ navigation }) => {
                                 <Text style={styles.labelProfileText}>Dirección</Text>
                                 <TextInput
                                     style={styles.profileText}
-                                    // onChangeText={(text) => setUserData({ ...userData, direccion: text })}
-                                    value={data?.domicilioConsultorioSecundario}
+                                    onFocus={() => navigation.navigate('AddressSearch', {
+                                        typeAddress: 'secondary',
+                                    })}
+                                    value={secondaryAddress}
+                                    multiline={true}
+                                    textAlign={'left'}
+                                    textAlignVertical={'center'}
                                     placeholder="ingrese dirección"
                                 />
                             </View>
@@ -175,7 +192,7 @@ const ProfileSalutiem = ({ navigation }) => {
                                     specialties.length > 0
                                         ?
                                         specialties.map((specialtie) => {
-                                            return <Chip mode="outlined" style={{marginBottom: 8, marginRight: 8, }} key={Math.random()}>{specialtie?.nombre}</Chip>
+                                            return <Chip mode="outlined" style={{ marginBottom: 8, marginRight: 8, }} key={Math.random()}>{specialtie?.nombre}</Chip>
                                         })
                                         :
                                         <Text>Sin especialidades</Text>

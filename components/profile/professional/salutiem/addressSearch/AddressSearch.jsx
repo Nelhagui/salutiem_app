@@ -1,28 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useProfessionalDirectionsContext } from '../../../../../src/context/ProfessionalDirectionsContext';
+import { getSimilarAddresses } from '../../../../../src/services/servicesRolMedico';
+import { getCoordinatesAddresses } from '../../../../../src/services/servicesRolMedico';
 
 
-const AddressSearch = () => {
-    const navigation = useNavigation();
+const AddressSearch = ({ route, navigation }) => {
+    const inputRef = useRef(null);
+    const { typeAddress } = route.params;
+    const {
+        setSecondaryAddress,
+        setMainAddress,
+        setSecondaryCoordinates,
+        setMainCoordinates
+    } = useProfessionalDirectionsContext();
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
 
-    const fetchSuggestionsMapBox = async (input) => {
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+
+    const fetchSimilarAddress = async (inputSearch) => {
         try {
-            console.warn('holaaa');
-            const apiKey = 'pk.eyJ1IjoibmVsc29uYWd1aWFyIiwiYSI6ImNscWR5MTd2aTBpajEybG5wNHdiMWtucHAifQ.2H93almWp2Ne3S8XosquXQ';
-            const cantResult = 5;
-            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${input}.json?country=ar&limit=${cantResult}&proximity=ip&types=address&language=es&access_token=${apiKey}`;
-
-            const response = await fetch(url);
-
+            const response = await getSimilarAddresses(inputSearch);
+            const data = await response.json();
             if (!response.ok) {
                 throw new Error(`Error fetching suggestions: ${response.statusText}`);
             }
-            const data = await response.json();
-            console.log(data)
-            setSuggestions(data.features); // Assuming suggestions are in the 'features' property
+            setSuggestions(data.predictions);
         } catch (error) {
             console.error('Error fetching suggestions:', error.message);
         }
@@ -30,19 +37,42 @@ const AddressSearch = () => {
 
     useEffect(() => {
         const debounceTimeout = setTimeout(() => {
-            fetchSuggestionsMapBox(query);
-        }, 300); // Ajusta el tiempo de espera según tus necesidades
+            fetchSimilarAddress(query);
+        }, 500); // Ajusta el tiempo de espera según tus necesidades
 
         return () => clearTimeout(debounceTimeout); // Limpia el timeout en cada cambio de entrada
     }, [query]);
 
-    const handleSelectSuggestion = (selectedCoords) => {
-        // Guardar las coordenadas seleccionadas
-        setSelectedCoordinates(selectedCoords);
+    const fetchGetCoordinates = async (place_id) => {
+        try {
+            const response = await getCoordinatesAddresses(place_id);
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(`Error fetching suggestions: ${response.statusText}`);
+            }
+            console.log('opaaa', data.results[0]?.geometry.location)
+            if (typeAddress === "main")
+                setMainCoordinates(data.results[0]?.geometry.location);
+            if (typeAddress === "secondary")
+                setSecondaryCoordinates(data.results[0]?.geometry.location);
+            //volver a la vista anterior
+            navigation.goBack();
+
+        } catch (error) {
+            console.error('Error fetching suggestions:', error.message);
+        }
+    };
+
+    const handleSelectPlaceId = (placeId, descriptionAddress) => {
+        if (typeAddress == "main")
+            setMainAddress(descriptionAddress)
+        if (typeAddress == "secondary")
+            setSecondaryAddress(descriptionAddress)
+        fetchGetCoordinates(placeId)
     };
 
     const renderItem = ({ item }) => {
-        const cadena = item.place_name_es;
+        const cadena = item.description;
         const partes = cadena.split(', ');
         var primerElemento = partes.shift();  // Extraer el primer elemento
         var restoComoString = partes.join(', ');
@@ -56,7 +86,7 @@ const AddressSearch = () => {
                     }}
                 >
                     <TouchableOpacity
-                        onPress={() => handleSelectSuggestion({ latitude: 40.7128, longitude: -74.0060 })}
+                        onPress={() => handleSelectPlaceId(item?.place_id, item?.description)}
                     >
                         <Text style={styles.suggestionItem}>{primerElemento}</Text>
                         <Text style={styles.suggestionSecondItem}>{restoComoString}</Text>
@@ -70,16 +100,18 @@ const AddressSearch = () => {
         <View style={styles.container}>
             <View style={styles.contentProfileText}>
                 <TextInput
+                    ref={inputRef}
                     style={styles.profileText}
                     onChangeText={(text) => setQuery(text)}
                     value={query}
-                    placeholder="Buscar dirección"
+                    placeholder={"Buscar dirección"}
+                // placeholder="Buscar dirección"
                 />
             </View>
             <FlatList
                 style={styles.list}
                 data={suggestions}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) => item.id}
                 renderItem={renderItem}
             />
         </View>

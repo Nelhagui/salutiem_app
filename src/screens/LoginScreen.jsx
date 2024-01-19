@@ -40,7 +40,7 @@ const LoginScreen = ({ navigation }) => {
                     }
                 } 
                 else if(response.status === 200){
-                    if(data?.token && data.user && data?.esMedico)
+                    if(data?.token && data.user)
                         setCredentials(data);
                     else
                         setErrorMessage('Error inesperado, intente nuevamente por favor.');

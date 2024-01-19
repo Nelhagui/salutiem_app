@@ -1,15 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Alert, Text, TouchableOpacity, ActivityIndicator, Dimensions, Animated, FlatList, TextInput } from 'react-native';
+import { View, Alert, Text, TouchableOpacity, ActivityIndicator, Dimensions, Animated, FlatList, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import * as Location from 'expo-location';
-import CurrentLocationButton from './components/partials/CurrentLocationButton';
-import SearchRegionButton from './components/partials/SearchRegionButton';
-import direcciones from './direccciones.json'
-import { getDistance } from './components/utilities/locationUtils';
-import styles from './components/styles/MapComponentStyles';
-import { getMedicos }  from './src/services/services';
+import direcciones from '../../direccciones.json'
+import { getDistance } from '../utilities/locationUtils';
+import styles from '../styles/MapComponentStyles';
+import { getMedicos } from '../../src/services/services';
+import { useMapContext } from '../../src/context/MapContext';
 
 const MapComponent = ({ navigation }) => {
+    const { specialtySelected } = useMapContext();
     const [expandedHeight] = useState(new Animated.Value(100)); // Altura inicial del contenedor.
     const screenHeight = Dimensions.get('window').height;
     const threeQuartersHeight = screenHeight * 0.65;
@@ -73,12 +73,12 @@ const MapComponent = ({ navigation }) => {
             const { latitude, longitude } = location.coords;
 
             setCurrentLocation({ latitude, longitude });
-            const filtered = direcciones?.filter(dir => {
-                const distance = getDistance(latitude, longitude, dir.latitud, dir.longitud);
-                return distance <= RADIUS;
-            });
+            // const filtered = direcciones?.filter(dir => {
+            //     const distance = getDistance(latitude, longitude, dir.latitud, dir.longitud);
+            //     return distance <= RADIUS;
+            // });
 
-            setFilteredPoints(filtered);
+            // setFilteredPoints(filtered);
             setLoading(false);
         })();
     }, []);
@@ -89,18 +89,6 @@ const MapComponent = ({ navigation }) => {
 
     // Referencia al componente MapView
     const mapRef = useRef();
-
-    // Función para mover el mapa a la ubicación actual
-    const goToCurrentLocation = () => {
-        if (currentLocation) {
-            mapRef.current.animateToRegion({
-                latitude: currentLocation.latitude,
-                longitude: currentLocation.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-            });
-        }
-    };
 
     const handleRegionChange = (region) => {
         // Si es la primera vez que se carga, se establece la región inicial.
@@ -169,7 +157,7 @@ const MapComponent = ({ navigation }) => {
                 .catch(error => {
                     console.error('Error al realizar la búsqueda:', error);
                 });
-                setIsSearching(false)
+            setIsSearching(false)
         }, 600); // Tiempo de espera en milisegundos
 
         setTimeoutId(newTimeoutId);
@@ -185,25 +173,40 @@ const MapComponent = ({ navigation }) => {
     };
 
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const result = await getMedicos();
-            console.warn(result);
-          } catch (error) {
-            // Manejar errores aquí
-            console.error('Error en fetchData:', error);
-          }
-        };
-    
-        fetchData();
-      }, []);
+
+        if(specialtySelected?.nombre && specialtySelected?.nombre !== ''){
+            const fetchSpecialtiesInMap = async () => {
+                try {
+                    const result = await getMedicos();
+                } catch (error) {
+                    console.error('Error en fetchData:', error);
+                }
+            };
+            // fetchSpecialtiesInMap();
+        }
+
+    }, [specialtySelected]);
+
+    const navigateToStackSearch = () => {
+        navigation.navigate('SearchSpecialties');
+    };
 
     return (
         <View style={styles.container}>
+            <View style={styles.contentSearchInput}>
+                <TextInput
+                    style={styles.searchInput}
+                    value={specialtySelected?.nombre}
+                    onFocus={navigateToStackSearch}
+                    placeholder="Busca por especialidad..."
+                    editable={!isSearching}
+                />
+            </View>
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" />
             ) : (
                 <>
+
                     <MapView
                         ref={mapRef}
                         style={styles.map}
@@ -233,46 +236,7 @@ const MapComponent = ({ navigation }) => {
                             </Marker>
                         ))}
                     </MapView>
-                    <CurrentLocationButton onPress={goToCurrentLocation} />
 
-                    {showSearchButton && (
-                        <SearchRegionButton onPress={searchInThisRegion} />
-                    )}
-                    <Animated.View style={[styles.bottomContainer, { height: expandedHeight }]}>
-                        <TouchableOpacity
-                            onPress={toggleContainer}
-                        >
-                            <Text
-                                style={styles.openCloseButton}
-                            >
-                                {isExpanded ? 'Ocultar lista' : 'Mostrar lista'}
-                            </Text>
-                        </TouchableOpacity>
-                        <View style={styles.contentSearchInput}>
-                            <TextInput
-                                style={styles.searchInput}
-                                value={searchText}
-                                onChangeText={filterData}
-                                placeholder="Busca por especialidad..."
-                                editable={!isSearching}
-                            />
-                        </View>
-                        <View>
-                            <FlatList
-                                data={filteredPoints}
-                                contentContainerStyle={{ paddingBottom: 100 }}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity onPress={() => handleCalloutPress(item)}>
-                                        <View style={styles.contentList}>
-                                            <View style={styles.itemList}>
-                                                <Text style={styles.textListDireccion}>{item.direccion}</Text>
-                                                <Text style={styles.textListNombreEspecialidad}>{item.nombre}, {item.especialidad}</Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                )} />
-                        </View>
-                    </Animated.View>
                 </>
             )}
 

@@ -14,16 +14,6 @@ const EditProfileSalutiem = ({ route, navigation }) => {
         cuentaMP: '',
     });
 
-    // Mini Bio: 
-    // Domicilio Consultario Principal: 
-    // Domicilio Consultario Secundario: 
-    // Precio Consulta Virtual: 
-    // Precio Consulta Presencial: 
-    // Especialidades: 
-    // Cueta de MercadoPago: 
-    // Estado del Perfil: 
-    // Estado de la Suscripción: 
-
     useEffect(() => {
         if (route.params?.userData) {
             setUserData(route.params.userData);

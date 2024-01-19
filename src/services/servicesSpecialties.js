@@ -1,7 +1,8 @@
 import { API_CONFIG } from "../config/config";
-import * as medicoAdapters from './../adapters/medicoAdapters'
+import * as medicoAdapters from '../adapters/medicoAdapters'
+import { adapterSpecialtiesResponse } from "../adapters/specialtiesAdapters";
 
-export const getPerfil = async (accessToken) => {
+export const getAllSpecialties = async (accessToken) => {
     console.log('paso token', accessToken);
     try {
         var myHeaders = new Headers();
@@ -28,10 +29,11 @@ export const getPerfil = async (accessToken) => {
     }
 };
 
-export const getSpecialties = async (accessToken) => {
+export const searchSpecialty = async (query, accessToken) => {
     try {
         var myHeaders = new Headers();
         myHeaders.append("Accept", "application/json");
+        myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", `Bearer ${accessToken}`);
 
         var requestOptions = {
@@ -39,12 +41,12 @@ export const getSpecialties = async (accessToken) => {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS_ROL_MEDICO.specialties}`, requestOptions);
+        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS_ROL_PACIENTE.searchSpecialty}/${query}`, requestOptions);
         const data = await response.json();
 
-        const adaptedPerfilData = medicoAdapters.adaptPerfilResponse(data);
+        const adapterResponseData = data.map(adapterSpecialtiesResponse);
 
-        return adaptedPerfilData;
+        return adapterResponseData;
 
     } catch (error) {
         console.error('Error fetching data from endpoint1:', error);

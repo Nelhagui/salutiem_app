@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
     },
     map: {
@@ -39,8 +39,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     contentSearchInput: {
-        // backgroundColor: 'red',
-        paddingBottom: 10
+        backgroundColor: '#ffff',
+        width: '100%',
+        padding: 10,
+        top: 0,
+        zIndex: 9999,
     },
     searchInput: {
         width: '100%',
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
         padding: 8
     },
     textListDireccion: {
-        textAlign: 'rigth', 
+        textAlign: 'right',
         fontWeight: '500'
     },
     textListNombreEspecialidad: {
