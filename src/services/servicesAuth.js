@@ -1,5 +1,4 @@
 import { API_CONFIG } from "../config/config";
-import * as medicoAdapters from '../adapters/medicoAdapters'
 
 export const loginFetch = async (email, password) => {
     try {
@@ -71,6 +70,29 @@ export const registerFetch = async (dataForm) => {
         // const adaptedPerfilData = medicoAdapters.adaptPerfilResponse(data);
 
         // return adaptedPerfilData;
+
+    } catch (error) {
+        console.error('Error fetching data from endpoint1:', error);
+    }
+};
+
+export const updateProfileFetch = async (accessToken, dataForm) => {
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Accept", "application/json");
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", `Bearer ${accessToken}`);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(dataForm),
+            credentials: 'include',  // Incluir las cookies en la solicitud
+            redirect: 'follow'
+        };
+        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS_AUTH.updateProfile}`, requestOptions);
+        const data = await response.json();
+        return data;
 
     } catch (error) {
         console.error('Error fetching data from endpoint1:', error);

@@ -1,25 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
+import {
+    View,
+    Text,
+    TextInput,
+    Image,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator,
+    ScrollView
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { useUserContext } from '../../../src/context/UserContext';
+import { useAuth } from '../../../src/context/AuthContext';
+import { updateProfileFetch } from '../../../src/services/servicesAuth';
 
-const EditProfile = ({ route, navigation }) => {
+const EditProfile = ({ navigation }) => {
+    const { user, setUser, accessToken } = useAuth();
+    const { userAddress, userDataEdit, setUserDataEdit } = useUserContext();
     const [isSaving, setIsSaving] = useState(false);
-    const [userData, setUserData] = useState({
-        name: '',
-        apellido: '',
-        email: '',
-        direccion: '',
-        contrasenia: '',
-        nuevaContrasenia: '',
-        repetirContrasenia: '',
-        foto: '',
-    });
 
     useEffect(() => {
-        if (route.params?.userData) {
-            setUserData(route.params.userData);
+        if (user) {
+            setUserDataEdit((prevData) => ({
+                ...user,
+                ...prevData,
+                contrasenia: '',
+                nuevaContrasenia: '',
+                repetirContrasenia: '',
+            }));
+        } else {
+            setUserDataEdit((prevData) => ({
+                ...prevData,
+                contrasenia: '',
+                nuevaContrasenia: '',
+                repetirContrasenia: '',
+            }));
         }
-    }, [route.params?.userData]);
+    }, [])
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -30,18 +47,44 @@ const EditProfile = ({ route, navigation }) => {
         });
 
         if (!result.cancelled) {
-            setUserData({ ...userData, foto: result.uri });
+            setUserDataEdit({ ...userDataEdit, foto: result.uri });
         }
     };
 
     const handleSave = () => {
-        setIsSaving(true); // Deshabilitar el botón
-        // Simula una petición al backend
-        setTimeout(() => {
-            setIsSaving(false); // Habilitar el botón
-            // Aquí decides si fue exitoso o no y navegas a la pantalla correspondiente
+        let datosRequeridos = !userDataEdit?.nombre && !userDataEdit?.apellido && !userDataEdit?.direccion && !userDataEdit?.coordenadas;
+        if (datosRequeridos)
+            return alert('Ingrese todos los campos obligatorios');
+
+        let datosCambiarContrasenia = userDataEdit?.nuevaContrasenia || userDataEdit?.repetirContrasenia;
+        if (datosCambiarContrasenia) {
+            let todasLasContrasenias = userDataEdit?.contrasenia !== "" && userDataEdit?.nuevaContrasenia !== "" && userDataEdit?.repetirContrasenia !== "";
+            if (!todasLasContrasenias)
+                return alert('Falta un campo de las contraseñas');
+        }
+        functionUpdateProfileFetch();
+    };
+
+    const functionUpdateProfileFetch = async () => {
+        setIsSaving(true)
+        try {
+            const responseDataUpdate = await updateProfileFetch(accessToken, userDataEdit);
+            setUser((prevData) => ({
+                ...prevData,
+                ... responseDataUpdate
+            }));
+
             navigation.navigate('SaveProfileResult', { success: true });
-        }, 2000); // 2 segundos de delay para simular la petición
+        } catch (error) {
+            console.error('Error al obtener datos del perfil:', error);
+        } finally {
+            onClose();
+            setIsSaving(false)
+        }
+    };
+
+    const navigateToStackSearch = () => {
+        navigation.navigate('SearchAddressUser');
     };
 
     return (
@@ -49,7 +92,7 @@ const EditProfile = ({ route, navigation }) => {
             <View style={styles.container}>
                 <View style={styles.photoContainer}>
                     <Image
-                        source={{ uri: userData.foto || 'https://via.placeholder.com/100' }}
+                        source={{ uri: userDataEdit.foto || 'https://via.placeholder.com/100' }}
                         style={styles.profileImage}
                     />
                     <TouchableOpacity onPress={pickImage}>
@@ -62,8 +105,8 @@ const EditProfile = ({ route, navigation }) => {
                     <Text style={styles.labelProfileText}>Nombre</Text>
                     <TextInput
                         style={styles.profileText}
-                        onChangeText={(text) => setUserData({ ...userData, name: text })}
-                        value={userData.name}
+                        onChangeText={(text) => setUserDataEdit({ ...userDataEdit, name: text })}
+                        value={userDataEdit.name}
                         placeholder="Nombre"
                     />
                 </View>
@@ -71,8 +114,8 @@ const EditProfile = ({ route, navigation }) => {
                     <Text style={styles.labelProfileText}>Apellido</Text>
                     <TextInput
                         style={styles.profileText}
-                        onChangeText={(text) => setUserData({ ...userData, apellido: text })}
-                        value={userData.apellido}
+                        onChangeText={(text) => setUserDataEdit({ ...userDataEdit, apellido: text })}
+                        value={userDataEdit.apellido}
                         placeholder="Apellido"
                     />
                 </View>
@@ -80,9 +123,9 @@ const EditProfile = ({ route, navigation }) => {
                     <Text style={styles.labelProfileText}>Dirección</Text>
                     <TextInput
                         style={styles.profileText}
-                        onChangeText={(text) => setUserData({ ...userData, direccion: text })}
-                        value={userData.direccion}
+                        value={userAddress}
                         placeholder="Dirección"
+                        onFocus={navigateToStackSearch}
                     />
                 </View>
                 <View style={{ width: '100%', marginTop: 9 }}>
@@ -91,8 +134,8 @@ const EditProfile = ({ route, navigation }) => {
                         <Text style={styles.labelProfileText}>Actual</Text>
                         <TextInput
                             style={styles.profileText}
-                            onChangeText={(text) => setUserData({ ...userData, contrasenia: text })}
-                            value={userData.contrasenia}
+                            onChangeText={(text) => setUserDataEdit({ ...userDataEdit, contrasenia: text })}
+                            value={userDataEdit.contrasenia}
                             placeholder="Contraseña"
                             secureTextEntry
                         />
@@ -101,8 +144,8 @@ const EditProfile = ({ route, navigation }) => {
                         <Text style={styles.labelProfileText}>Nueva contraseña</Text>
                         <TextInput
                             style={styles.profileText}
-                            onChangeText={(text) => setUserData({ ...userData, nuevaContrasenia: text })}
-                            value={userData.contrasenia}
+                            onChangeText={(text) => setUserDataEdit({ ...userDataEdit, nuevaContrasenia: text })}
+                            value={userDataEdit.nuevaContrasenia}
                             placeholder="Contraseña"
                             autoCompleteType="off"
                             textContentType="none"
@@ -113,8 +156,8 @@ const EditProfile = ({ route, navigation }) => {
                         <Text style={styles.labelProfileText}>Repetir nueva contraseña</Text>
                         <TextInput
                             style={styles.profileText}
-                            onChangeText={(text) => setUserData({ ...userData, repetirContrasenia: text })}
-                            value={userData.contrasenia}
+                            onChangeText={(text) => setUserDataEdit({ ...userDataEdit, repetirContrasenia: text })}
+                            value={userDataEdit.repetirContrasenia}
                             placeholder="Contraseña"
                             secureTextEntry
                         />

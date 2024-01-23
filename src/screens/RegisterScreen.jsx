@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import { registerFetch } from '../services/servicesAuth';
+import { useLoginRegister } from '../context/LoginRegisterContext';
 
 const RegisterScreen = ({ navigation }) => {
+
+    const { addressRegister } = useLoginRegister();
     const [enableButtonSave, setEnableButtonSave] = useState(false)
+    const [errorMail, setErrorMail] = useState(false)
+    const [errorPass, setErrorPass] = useState(false)
     const [selectRol, setSelectRol] = useState(false)
     const [isDoctor, setIsDoctor] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const [dataForm, setDataForm] = useState({
         nombre: '',
@@ -23,8 +31,7 @@ const RegisterScreen = ({ navigation }) => {
         password: '',
         repeatPassword: ''
     })
-    const [isSaving, setIsSaving] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+
 
     const isFormValid = () => {
         return (
@@ -88,144 +95,185 @@ const RegisterScreen = ({ navigation }) => {
         });
     };
 
+    const navigateToStackSearch = () => {
+        navigation.navigate('SearchAddressRegister');
+    };
+
     return (
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            {selectRol
+                ?
+                <View style={styles.container}>
+                    <Text style={styles.title}>Registro</Text>
+                    <Text>{isDoctor ? 'Profesional' : 'Paciente'}</Text>
 
-        selectRol
-            ?
-            <View style={styles.container}>
-                <Text style={styles.title}>Registro</Text>
-                <Text>{isDoctor ? 'Profesional' : 'Paciente'}</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => handleInputChange("nombre", text)}
-                    defaultValue={dataForm?.nombre}
-                    placeholder="Nombre"
-                />
+                    <View style={{ width: '100%', marginBottom: 4 }}>
+                        <TextInput
+                            mode='outlined'
+                            style={styles.input}
+                            onChangeText={(text) => handleInputChange("nombre", text)}
+                            defaultValue={dataForm?.nombre}
+                            label="Nombre"
+                            editable={!isSaving}
+                            error={errorMail}
+                        />
+                        <Text style={{ marginLeft: 5, color: 'red' }}>{errorMail}</Text>
+                    </View>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => handleInputChange("apellido", text)}
-                    defaultValue={dataForm?.apellido}
-                    placeholder="Apellido"
-                />
+                    <View style={{ width: '100%', marginBottom: 4 }}>
+                        <TextInput
+                            mode='outlined'
+                            style={styles.input}
+                            onChangeText={(text) => handleInputChange("apellido", text)}
+                            defaultValue={dataForm?.apellido}
+                            label="Apellido"
+                            editable={!isSaving}
+                            error={errorMail}
+                        />
+                        <Text style={{ marginLeft: 5, color: 'red' }}>{errorMail}</Text>
+                    </View>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => handleInputChange("direccion", text)}
-                    defaultValue={dataForm?.direccion}
-                    placeholder="Dirección"
-                />
+                    <View style={{ width: '100%', marginBottom: 4 }}>
+                        <TextInput
+                            mode='outlined'
+                            label="Dirección"
+                            textAlign={'left'}
+                            textAlignVertical={'center'}
+                            style={styles.input}
+                            multiline={true}
+                            value={addressRegister}
+                            onFocus={navigateToStackSearch}
+                            editable={!isSaving}
+                            error={errorMail}
+                        />
+                        <Text style={{ marginLeft: 5, color: 'red' }}>{errorMail}</Text>
+                    </View>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => handleInputChange("email", text)}
-                    defaultValue={dataForm?.email}
-                    placeholder="Email"
-                    keyboardType="email-address"
-                />
+                    <View style={{ width: '100%', marginBottom: 4 }}>
+                        <TextInput
+                            mode='outlined'
+                            style={styles.input}
+                            onChangeText={(text) => handleInputChange("email", text)}
+                            defaultValue={dataForm?.email}
+                            label="email"
+                            keyboardType="email-address"
+                            editable={!isSaving}
+                            error={errorMail}
+                        />
+                        <Text style={{ marginLeft: 5, color: 'red' }}>{errorMail}</Text>
+                    </View>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => handleInputChange("password", text)}
-                    defaultValue={dataForm?.password}
-                    placeholder="Contraseña"
-                    secureTextEntry
-                />
+                    <View style={{ width: '100%', marginBottom: 4 }}>
+                        <TextInput
+                            mode='outlined'
+                            style={styles.input}
+                            onChangeText={(text) => handleInputChange("password", text)}
+                            defaultValue={dataForm?.password}
+                            label="Contraseña"
+                            keyboardType="email-address"
+                            editable={!isSaving}
+                            error={errorMail}
+                            secureTextEntry
+                        />
+                        <Text style={{ marginLeft: 5, color: 'red' }}>{errorMail}</Text>
+                    </View>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => handleInputChange("repeatPassword", text)}
-                    defaultValue={dataForm?.repeatPassword}
-                    placeholder="Repetir Contraseña"
-                    secureTextEntry
-                />
-                {
-                    errorMessage
-                        ? <Text style={styles.error}>{errorMessage}</Text>
-                        : null
-                }
-
-                <TouchableOpacity
-                    style={
-                        isFormValid() && !isSaving
-                            ? styles.button
-                            : styles.buttonDisabled
-                    }
-                    onPress={handleRegister}
-                    disabled={!isFormValid() && isSaving}
-                >
+                    <View style={{ width: '100%', marginBottom: 4 }}>
+                        <TextInput
+                            mode='outlined'
+                            style={styles.input}
+                            onChangeText={(text) => handleInputChange("repeatPassword", text)}
+                            defaultValue={dataForm?.repeatPassword}
+                            label="Repetir Contraseña"
+                            keyboardType="email-address"
+                            editable={!isSaving}
+                            error={errorMail}
+                            secureTextEntry
+                        />
+                        <Text style={{ marginLeft: 5, color: 'red' }}>{errorMail}</Text>
+                    </View>
                     {
-                        isSaving
-                            ? <Text style={styles.buttonText}>Procesando...</Text>
-                            : <Text style={styles.buttonText}>Registrarse</Text>
+                        errorMessage
+                            ? <Text style={styles.error}>{errorMessage}</Text>
+                            : null
                     }
 
-                </TouchableOpacity>
+                    <TouchableOpacity
+                        style={
+                            isFormValid() && !isSaving
+                                ? styles.button
+                                : styles.buttonDisabled
+                        }
+                        onPress={handleRegister}
+                        disabled={!isFormValid() && isSaving}
+                    >
+                        {
+                            isSaving
+                                ? <Text style={styles.buttonText}>Procesando...</Text>
+                                :
+                                <TouchableOpacity style={styles.button} onPress={() => null} disabled={isSaving}>
+                                    <Text style={styles.buttonText}>Registrarse</Text>
+                                </TouchableOpacity>
+                        }
 
-                <TouchableOpacity
-                    style={{ marginTop: 30 }}
-                    onPress={() => navigation.navigate('Login')}
-                    disabled={isSaving}
-                >
-                    <Text style={styles.buttonLink}>¿Ya tienes cuenta? Inicia sesión</Text>
-                </TouchableOpacity>
-            </View>
-            :
-            <View style={styles.container}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => { setIsDoctor(false); setSelectRol(true) }}
-                    disabled={isSaving}
-                >
-                    <Text style={styles.buttonText}>Soy Paciente</Text>
-                </TouchableOpacity>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => { setIsDoctor(true); setSelectRol(true) }}
-                    disabled={isSaving}
-                >
-                    <Text style={styles.buttonText}>Soy Médico</Text>
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity
+                        style={{ marginTop: 30 }}
+                        onPress={() => navigation.navigate('Login')}
+                        disabled={isSaving}
+                    >
+                        <Text style={styles.buttonLink}>¿Ya tienes cuenta? Inicia sesión</Text>
+                    </TouchableOpacity>
+                </View>
+                :
+                <View style={styles.container}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => { setIsDoctor(false); setSelectRol(true) }}
+                        disabled={isSaving}
+                    >
+                        <Text style={styles.buttonText}>Soy Paciente</Text>
+                    </TouchableOpacity>
 
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => { setIsDoctor(true); setSelectRol(true) }}
+                        disabled={isSaving}
+                    >
+                        <Text style={styles.buttonText}>Soy Médico</Text>
+                    </TouchableOpacity>
+                </View>}
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    scrollViewContent: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        backgroundColor: '#fff',
+        width: '100%'
     },
     title: {
         fontSize: 24,
         marginBottom: 20,
-        color: '#333',
     },
     input: {
         width: '100%',
-        borderWidth: 1,
-        borderColor: '#ddd',
-        padding: 10,
-        marginBottom: 10,
-        borderRadius: 5,
+        marginBottom: 4,
     },
     button: {
         marginTop: 40,
-        width: 'auto',
+        width: '100%',
         backgroundColor: '#27b4e4', // Color de fondo
-        padding: 10, // Relleno
-        borderRadius: 5, // Bordes redondeados
-        alignItems: 'center', // Alineación del texto en el botón
-    },
-    buttonDisabled: {
-        marginTop: 40,
-        width: 'auto',
-        backgroundColor: '#27b4e4', // Color de fondo
-        opacity: 0.5,
         padding: 10, // Relleno
         borderRadius: 5, // Bordes redondeados
         alignItems: 'center', // Alineación del texto en el botón

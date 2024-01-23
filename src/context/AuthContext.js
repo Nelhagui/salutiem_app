@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
         setCredentials,
         accessToken,
         user,
+        setUser,
         isProfessional,
         logout,
     };

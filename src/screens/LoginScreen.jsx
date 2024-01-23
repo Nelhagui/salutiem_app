@@ -27,6 +27,7 @@ const LoginScreen = ({ navigation }) => {
         setErrorMessage('');
         try {
             const response = await loginFetch(email, password);
+            console.log('response', response);
             const data = await response.json()
             // Verificar el status en la respuesta
             if (response && response.status) {

@@ -22,7 +22,7 @@ const Profile = ({ navigation }) => {
     }, []);
 
     const handleEditPress = () => {
-        navigation.navigate('EditProfile', { userData: data });
+        navigation.navigate('EditProfile');
     };
 
     const UserImage = ({ uri }) => {

@@ -17,5 +17,6 @@ export const API_CONFIG = {
     ENDPOINTS_AUTH: {
         login: 'api/login',
         register: 'register',
+        updateProfile: 'api/profile/update'
     },
 };
